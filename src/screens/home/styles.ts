@@ -4,6 +4,9 @@ import styled, { DefaultTheme } from 'styled-components/native';
 interface HomeProps {
   background: string
 }
+interface TextResultProps {
+  resultPropColor: number
+}
 
 export const Container = styled.View`
   display: flex;
@@ -62,10 +65,10 @@ export const ResultCircle = styled.View<HomeProps>`
   border-radius: 50px;
   padding-bottom: 10px;  
 `
-export const Result = styled.Text`
+export const Result = styled.Text<TextResultProps>`
   font-weight: bold;
   font-size: 60px;
-  color: #fff;
+  color: ${(props) => props.resultPropColor !== 0 ? '#fff' : '#000'};
 `
 export const ResultClassification = styled.Text`
   font-weight: bold;

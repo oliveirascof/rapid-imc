@@ -95,7 +95,7 @@ function Home(){
 
         <ResultView>
           <ResultCircle background={color}  >
-          <Result>
+          <Result resultPropColor={resultindex} >
             {resultindex === 0 ? '?' : resultindex}
           </Result>
             <ResultClassification>{resultIMC}</ResultClassification>
