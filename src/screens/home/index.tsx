@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import {Alert} from 'react-native';
+import {Alert, ToastAndroid} from 'react-native';
+import {theme} from '../../styles/theme';
 import {
-  Container, 
-  Title, 
-  TextTitle, 
-  ResultView, 
-  TextButton, 
-  Button, 
-  Input, 
-  ResultBox, 
+  Container,
+  Title,
+  TextTitle,
+  ResultView,
+  TextButton,
+  Input,
   Result,
   ViewInput,
   ViewTitleInput,
   TextTitleInput,
-  ViewButtonCalcular,
   PrimaryView,
   SecondView,
-  ResultTextTitle,
-  ResultClassification} from './styles';
+  ButtonLimpar,
+  ResultClassification,
+  ViewButtons,
+  ButtonCalcular,
+  Avatar,
+  ResultCircle} from './styles';
 
 function Home(){
 
@@ -25,6 +27,7 @@ function Home(){
   const [altura, setAltura] = useState('')
   const [resultindex, setResultIndex] = useState(0)
   const [resultIMC, setResultIMC] = useState('')
+  const [color, setColor] = useState('')
   const regex = /[-.,]/g;
 
   function calcularImc(){
@@ -35,28 +38,47 @@ function Home(){
       let tempPeso = parseFloat(peso)
       let tempAltura = parseFloat(altura)
       let tempResult = (tempPeso / ( tempAltura * tempAltura))
-      result = Math.round(tempResult * 10000)
-      setResultIMC(() => Classification(result)) 
-      setResultIndex(result)
+      result = Math.round(tempResult * 10000);
+      setResultIndex(() => result)
+      classification(result)
     }
   }
 
-  function Classification(imc: number){
+  function classification(imc: number){
     var classification = ''
+    var color = ''
     if (imc > 0 && imc < 18.4){
         classification =  'Baixo Peso'
+        color = theme.colors.classification.baixopeso
     } else if (  (imc > 18.4 && imc <= 24.9) ){
         classification =  'Normal'
+        color = theme.colors.classification.normal
     } else if (  (imc > 24.9 && imc <= 29.9) ){
         classification =  'Sobrepeso'
+        color = theme.colors.classification.sobrepeso
     } else if ( (imc > 29.9 && imc <= 34.9) ){
         classification =  'Obesidade grau 1'
+        color = theme.colors.classification.obeso1
     } else if ( (imc > 34.9 && imc <= 39.9) ){
         classification =  'Obesidade grau 2'
+        color = theme.colors.classification.obeso2
     } else {
       classification =  'Obesidade grau 3'
+      color = theme.colors.classification.obeso2
     }
-    return classification
+    setResultIMC(() => classification)
+    setColor(() => color)
+  }
+
+  function clearForm(){
+    setResultIMC('')
+    setResultIndex(0)
+    setAltura('')
+    setPeso('')
+    setColor('')
+    setTimeout(() => {
+      ToastAndroid.show('Campos apagados!', ToastAndroid.SHORT)
+    }, 200)
   }
 
   return(
@@ -68,16 +90,16 @@ function Home(){
           <TextTitle>
             Calcule seu IMC
           </TextTitle>
+          <Avatar source={require('../../../assets/imc-logo.png')}/>
         </Title>
 
         <ResultView>
-          <ResultBox>
-            <ResultTextTitle>Resultado</ResultTextTitle>
+          <ResultCircle background={color}  >
           <Result>
             {resultindex === 0 ? '?' : resultindex}
           </Result>
             <ResultClassification>{resultIMC}</ResultClassification>
-          </ResultBox>
+          </ResultCircle>
         </ResultView>
 
       </PrimaryView>
@@ -109,14 +131,14 @@ function Home(){
           />
         </ViewInput >
 
-        <ViewButtonCalcular>
-          <Button 
-            onPress={calcularImc}>
-            <TextButton>
-              CALCULAR
-            </TextButton>
-          </Button>
-        </ViewButtonCalcular>
+        <ViewButtons>
+          <ButtonCalcular onPress={() => calcularImc()}>
+            <TextButton>CALCULAR</TextButton>
+          </ButtonCalcular>
+          <ButtonLimpar onPress={() => clearForm()}>
+            <TextButton>LIMPAR</TextButton>
+          </ButtonLimpar>
+        </ViewButtons>
 
       </SecondView>
     </Container>
