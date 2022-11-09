@@ -1,7 +1,7 @@
 # Rapid IMC
-### Calcule seu IMC rapidamente.
+## Calcule seu IMC rapidamente.
 
-Para criar o Rapid IMC utilizei as seguintes tecnologias:
+#### Ferramentas utilizadas:
 
 React Native <br>
 Expo manager com typescript <br>
