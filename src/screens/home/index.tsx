@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import {Alert, ToastAndroid} from 'react-native';
+import {Alert, Text, ToastAndroid} from 'react-native';
 import {theme} from '../../styles/theme';
 import {
   Container,
   Title,
   TextTitle,
   ResultView,
-  TextButton,
   Input,
   Result,
   ViewInput,
@@ -16,10 +15,16 @@ import {
   SecondView,
   ButtonLimpar,
   ResultClassification,
-  ViewButtons,
   ButtonCalcular,
   Avatar,
-  ResultCircle} from './styles';
+  ResultCircle,
+  HStack,
+  ViewButtonCalcular,
+  ViewButtonClear,
+  TextButtonClear,
+  TextButtonCalculate,
+  ButtonSave,
+  BottomView} from './styles';
 
 function Home(){
 
@@ -29,6 +34,7 @@ function Home(){
   const [resultIMC, setResultIMC] = useState('')
   const [color, setColor] = useState('')
   const regex = /[-.,]/g;
+
 
   function calcularImc(){
     var result = 0
@@ -62,9 +68,11 @@ function Home(){
     } else if ( (imc > 34.9 && imc <= 39.9) ){
         classification =  'Obesidade grau 2'
         color = theme.colors.classification.obeso2
-    } else {
+    } else if ( imc > 39.9 ){
       classification =  'Obesidade grau 3'
       color = theme.colors.classification.obeso2
+    } else {
+      setResultIndex( () => 0)
     }
     setResultIMC(() => classification)
     setColor(() => color)
@@ -81,6 +89,7 @@ function Home(){
     }, 200)
   }
 
+
   return(
     <Container>
 
@@ -88,7 +97,7 @@ function Home(){
 
         <Title>
           <TextTitle>
-            Calcule seu IMC
+            CALCULE SEU IMC
           </TextTitle>
           <Avatar source={require('../../../assets/imc-logo.png')}/>
         </Title>
@@ -105,42 +114,62 @@ function Home(){
       </PrimaryView>
 
       <SecondView>
+        <HStack>
         <ViewInput>
+
           <ViewTitleInput>
             <TextTitleInput>Sua altura (cm)</TextTitleInput>
           </ViewTitleInput>
+
           <Input
             placeholder='Altura'
             placeholderTextColor={'#808080'}
-            onChangeText={(i) => setAltura(i[0] !== '0' ? i.trim() : '')}
-            value={altura.replace(regex, '')}
+            onChangeText={(i) => setAltura(i[0] !== '0' ? i.trim().replace(regex, '') : '')}
+            value={altura}
             keyboardType={'numeric'}
+            maxLength={3}
           />
-        </ViewInput>
 
-        <ViewInput>
           <ViewTitleInput>
             <TextTitleInput>Seu peso (kg)</TextTitleInput>
           </ViewTitleInput>
+
           <Input
             placeholder='Peso'
             placeholderTextColor={'#808080'}
-            onChangeText={(i) => setPeso(i[0] !== '0' ? i.trim() : '')}
-            value={peso.replace(regex, '')}
+            onChangeText={(i) => setPeso(i[0] !== '0' ? i.trim().replace(regex, '') : '')}
+            value={peso}
             keyboardType={'numeric'}
+            maxLength={2}
           />
         </ViewInput >
 
-        <ViewButtons>
+        <ViewButtonCalcular>
           <ButtonCalcular onPress={() => calcularImc()}>
-            <TextButton>CALCULAR</TextButton>
+            <TextButtonCalculate>CALCULAR</TextButtonCalculate>
           </ButtonCalcular>
-          <ButtonLimpar onPress={() => clearForm()}>
-            <TextButton>LIMPAR</TextButton>
-          </ButtonLimpar>
-        </ViewButtons>
+        </ViewButtonCalcular>
+        </HStack>
+
+        
+        
 
       </SecondView>
+
+      <BottomView>
+      
+        <ViewButtonClear>
+          <ButtonLimpar colorButtonClear={ peso || altura} onPress={() => clearForm()}>
+            <TextButtonClear colorButtonClear={ peso || altura}>LIMPAR</TextButtonClear>
+          </ButtonLimpar>
+
+          <ButtonSave>
+            <TextButtonCalculate>SALVAR</TextButtonCalculate>
+          </ButtonSave>
+        </ViewButtonClear>
+
+      </BottomView>
+
     </Container>
   )
 };
