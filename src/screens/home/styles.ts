@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 
+
 interface HomeProps {
   background: string;
 }
@@ -16,12 +17,11 @@ export const Container = styled.View`
   align-items: center;
   background-color: #ffffe0;
   width: 100%;
-  height: 100%;
 `
 export const PrimaryView = styled.View`
   background-color: #ffffe0;
   width: 100%;
-  height: auto;
+  height: 260px;
 `
 export const SecondView = styled.View`
   flex: 1;
@@ -30,13 +30,6 @@ export const SecondView = styled.View`
   background-color: #d7ffda;
   width: 100%;
 `
-
-export const HStack = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 15px;
-`
-
 export const Title = styled.View`
   align-items: center;
   justify-content: center;
@@ -56,7 +49,6 @@ export const ResultView = styled.View`
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 10px;
-  
 `
 export const ResultCircle = styled.View<HomeProps>`
   align-items: center;
@@ -72,7 +64,7 @@ export const ResultCircle = styled.View<HomeProps>`
 `
 export const Result = styled.Text<TextResultProps>`
   font-weight: bold;
-  font-size: 60px;
+  font-size: 40px;
   color: ${(props) => props.resultPropColor !== 0 ? '#fff' : '#000'};
 `
 export const ResultClassification = styled.Text`
@@ -80,54 +72,33 @@ export const ResultClassification = styled.Text`
   color: #fff;
   font-size: 15px;
 `
-export const ButtonCalcular = styled.TouchableOpacity`
-  width: 160px;
-  height: 120px;
-  border-radius: 15px;
-  background-color:  #2dcc24 ;
-  justify-content: center;
-  align-items: center;
-  border-color: #009726;
-  border-width: 1px;
-  margin-left: 5px;
-`
-export const ButtonLimpar = styled.TouchableOpacity<BtnClearProps>`
+export const HStack = styled.View`
   width: 100%;
-  height: 50px;;
-  border-radius: 50px;
-  background-color: ${(props) => props.colorButtonClear ? '#ff5959' : '#d7ffda'};
+  height: 130px;
+  flex-direction: row;
+  align-items:center;
   justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
 `
-export const ButtonSave = styled.TouchableOpacity`
-  width: 100%;
-  height: 50px;;
-  border-radius: 50px;
-  background-color: #386dad;
+export const ViewInput = styled.View` 
+  flex: 0.6;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  border-color: #0000d5;
-  border-width: 1px;
+  height: 130px;
+  margin-top: 2px;
 `
-export const TextButtonCalculate = styled.Text`
-  color: #fff;
-  font-size: 25px;
-  font-weight: bold;
-  text-align: center;
+export const ViewTitleInput = styled.View`
+  align-self: flex-start;
+  padding: 1px;
 `
-
-export const TextButtonClear = styled.Text<BtnClearProps>`
-  color: ${(props) => props.colorButtonClear ? '#fff' : '#d7ffda'};
-  font-size: 25px;
-  font-weight: bold;
-  text-align: center;
+export const TextTitleInput = styled.Text`
+  font-weight: normal;
+  font-size: 15px;
+  padding-left: 20px;
 `
 export const Input = styled.TextInput`
-  height: 50px;
-  width: 180px;
+  height: 40%;
+  width: 90%;
   background-color: #ffffe0;
   border-radius: 15px;
   padding-left: 10px;
@@ -135,37 +106,81 @@ export const Input = styled.TextInput`
   border-color: #909090;
   border-width: 1px;
 `
-export const ViewInput = styled.View` 
-  width: 50%;
-  height: 50%;
-  margin-right: 10px;
-`
-export const ViewTitleInput = styled.View`
- 
-`
-export const TextTitleInput = styled.Text`
-  font-weight: normal;
-  font-size: 20px;
-  padding-left: 5px;
-`
 export const ViewButtonCalcular = styled.View`
-  width: 100%;
+  flex: 0.4;
+  align-self: center;
+  justify-content: center;
+  height: 125px;
   margin-top: 20px;
- 
 `
-
+export const ButtonCalcular = styled.TouchableOpacity`
+  flex: 1;
+  width: 90%;
+  border-radius: 15px;
+  background-color:  #2dcc24 ;
+  justify-content: center;
+  align-items: center;
+  border-color: #009726;
+  border-width: 1px;
+`
 export const ViewButtonClear = styled.View`
   justify-content: center;
   align-items: center;
   margin: 0px 15px 0px 15px;
 `
-export const Avatar = styled.Image`
+export const ImageIMCLevel = styled.Image`
   width: 100%;
   height: 60px;
   border-radius: 50px;
   margin-bottom: -35px;
 `
 export const BottomView = styled.View`
-  background-color: #d7ffda;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+
 `
+export const ButtonSave = styled.TouchableOpacity`
+  flex: 1;
+  flex-direction: row;
+  height: 40px;
+  background-color: #386dad;
+  justify-content: space-evenly;
+  align-items: center;
+  border-color: #0000d5;
+  border-width: 1px;
+`
+export const TextButtonCalculate = styled.Text`
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+`
+export const ButtonLimpar = styled.TouchableOpacity<BtnClearProps>`
+  flex: 1;
+  flex-direction: row;
+  height: 40px;
+  background-color: #ff5959;
+  justify-content: space-evenly;
+  align-items: center;
+`
+export const TextButtonClear = styled.Text`
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+`
+{/*export const ButtonLimpar = styled.TouchableOpacity<BtnClearProps>`
+  flex: 1;
+  height: 40px;
+  background-color: ${(props) => props.colorButtonClear ? '#ff5959' : '#d7ffda'};
+  justify-content: center;
+  align-items: center;
+`
+export const TextButtonClear = styled.Text<BtnClearProps>`
+  color: ${(props) => props.colorButtonClear ? '#fff' : '#d7ffda'};
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+`*/}
