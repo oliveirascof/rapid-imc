@@ -6,6 +6,7 @@ import {theme} from '../styles/theme';
 import AppRoutes from './app.routes';
 import { StatusBar } from 'react-native';
 
+
 const Routes = () => {
   return(
     <NavigationContainer>
@@ -13,7 +14,8 @@ const Routes = () => {
         <StatusBar barStyle={'light-content'}/>
         <AppRoutes />
       </ThemeProvider>
-    </NavigationContainer>
+    </NavigationContainer> 
+    
   )
 };
 

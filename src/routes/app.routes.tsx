@@ -9,7 +9,8 @@ const AppRoutes = () => {
   return(
     <Navigator>
         <Screen options={{headerShown: false}}
-          name='home' component={Home}/>
+          name='home' component={Home}
+        />
     </Navigator>
   )
 };

@@ -15,39 +15,46 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #ffffe0;
+  background-color: #aeaeae;
   width: 100%;
 `
 export const PrimaryView = styled.View`
-  background-color: #ffffe0;
+  background-color: #aeaeae90;
   width: 100%;
-  height: 260px;
 `
 export const SecondView = styled.View`
   flex: 1;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  background-color: #d7ffda;
+  background-color: #e6e6e6;
   width: 100%;
 `
-export const Title = styled.View`
+export const ViewTitle = styled.View`
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
-  background-color: #d7ffda;
+  margin: 5px;
   padding: 10px;
+  background-color: #aeaeae90;
   height: auto;
 `
 export const TextTitle = styled.Text`
   font-weight: bold;
-  font-size: 30px;
-  padding: 10px;
-  margin-bottom: 10px;
+  font-size: 20px;
 `
+export const ViewImage = styled.View`
+  background-color: #aeaeae90;
+  padding: 10px;
+`
+export const ImageIMCLevel = styled.Image`
+  width: 100%;
+  height: 60px;
+  border-radius: 50px;
+  
+`
+
 export const ResultView = styled.View`
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
   margin-bottom: 10px;
 `
 export const ResultCircle = styled.View<HomeProps>`
@@ -55,11 +62,10 @@ export const ResultCircle = styled.View<HomeProps>`
   justify-content: center;
   height: 100px;
   width: 150px;
-  background-color: ${(props) => props.background ? props.background : '#ffffe0'};
+  background-color: ${(props) => props.background ? props.background : '#aeaeae90'};
   opacity: 0.9;
   border-radius: 50px;
   padding-bottom: 10px;  
-  margin-top: 10px;
   margin-bottom: 5px;
 `
 export const Result = styled.Text<TextResultProps>`
@@ -99,12 +105,12 @@ export const TextTitleInput = styled.Text`
 export const Input = styled.TextInput`
   height: 40%;
   width: 90%;
-  background-color: #ffffe0;
+  background-color: #fff;
   border-radius: 15px;
   padding-left: 10px;
   font-size: 30px;
-  border-color: #909090;
-  border-width: 1px;
+  border-color: #aeaeae;
+  border-width: 0px;
 `
 export const ViewButtonCalcular = styled.View`
   flex: 0.4;
@@ -117,59 +123,71 @@ export const ButtonCalcular = styled.TouchableOpacity`
   flex: 1;
   width: 90%;
   border-radius: 15px;
-  background-color:  #2dcc24 ;
+  background-color:  #00972690;
   justify-content: center;
   align-items: center;
   border-color: #009726;
-  border-width: 1px;
+  border-width: 0px;
+`
+export const TextButtonCalculate = styled.Text`
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 `
 export const ViewButtonClear = styled.View`
   justify-content: center;
   align-items: center;
-  margin: 0px 15px 0px 15px;
-`
-export const ImageIMCLevel = styled.Image`
-  width: 100%;
-  height: 60px;
-  border-radius: 50px;
-  margin-bottom: -35px;
 `
 export const BottomView = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
-
+  padding: 15px;
+  margin-top: 20px;
 `
 export const ButtonSave = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
-  height: 40px;
-  background-color: #386dad;
+  height: 50px;
+  background-color: #aeaeae;
   justify-content: space-evenly;
   align-items: center;
   border-color: #0000d5;
-  border-width: 1px;
-`
-export const TextButtonCalculate = styled.Text`
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
+  border-width: 0px;
+  border-radius: 10px;
+  margin-left: 6px;
 `
 export const ButtonLimpar = styled.TouchableOpacity<BtnClearProps>`
   flex: 1;
   flex-direction: row;
-  height: 40px;
-  background-color: #ff5959;
+  height: 50px;
+  background-color: #aeaeae;
   justify-content: space-evenly;
   align-items: center;
+  border-radius: 10px;
+  margin-right: 6px;
 `
 export const TextButtonClear = styled.Text`
-  color: #fff;
+  color: #000;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+`
+export const ViewHistory = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  padding: 10px;
+`
+export const TouchableHistory = styled.TouchableOpacity`
+  
+`
+export const TextHistory = styled.Text`
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
 `
 {/*export const ButtonLimpar = styled.TouchableOpacity<BtnClearProps>`
   flex: 1;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {Alert, ToastAndroid, Text} from 'react-native';
 import {theme} from '../../styles/theme';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
@@ -6,8 +6,6 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 import {
   Container,
-  Title,
-  TextTitle,
   ResultView,
   Input,
   Result,
@@ -23,22 +21,25 @@ import {
   ResultCircle,
   HStack,
   ViewButtonCalcular,
-  ViewButtonClear,
   TextButtonClear,
   TextButtonCalculate,
   ButtonSave,
-  BottomView} from './styles';
+  BottomView,
+  ViewTitle,
+  TextTitle,
+  ViewImage,
+  TouchableHistory,
+  ViewHistory,
+  TextHistory} from './styles';
 
-function Home(){
+const Home = () => {
 
-  const [peso, setPeso] = useState('')
-  const [altura, setAltura] = useState('')
-  const [resultindex, setResultIndex] = useState(0)
-  const [resultIMC, setResultIMC] = useState('')
-  const [color, setColor] = useState('')
+  const [peso, setPeso] = useState('');
+  const [altura, setAltura] = useState('');
+  const [resultindex, setResultIndex] = useState(0);
+  const [resultIMC, setResultIMC] = useState('');
+  const [color, setColor] = useState('');
   const regex = /[-.,]/g;
-
-
 
   function calcularImc(){
     if ((peso.length === 0) || (altura.length === 0)){
@@ -47,12 +48,11 @@ function Home(){
       let tempPeso = parseFloat(peso)
       let tempAltura = parseFloat(altura)
       let tempResult= (tempPeso / ( tempAltura * tempAltura)) * 10000
-      var result: number = tempResult.toFixed(2)
-      setResultIndex(() => result)
+      var result: any= tempResult.toFixed(2)
+      setResultIndex(result)
       classification(result)
     }
-  }
-
+  };
   function classification(imc: number){
     var classification = ''
     var color = ''
@@ -75,12 +75,11 @@ function Home(){
       classification =  'Obesidade grau 3'
       color = theme.colors.classification.obeso2
     } else {
-      setResultIndex( () => 0)
+      setResultIndex(0)
     }
-    setResultIMC(() => classification)
-    setColor(() => color)
-  }
-
+    setResultIMC(classification)
+    setColor(color)
+  };
   const clearForm = () => {
     setResultIMC('')
     setResultIndex(0)
@@ -90,19 +89,20 @@ function Home(){
     setTimeout(() => {
       ToastAndroid.show('Campos apagados!', ToastAndroid.SHORT)
     }, 200)
-  }
+  };
 
 
   return(
-    <Container>
+    <Container >
       <PrimaryView>
 
-        <Title>
-          <TextTitle>
-            CALCULE SEU IMC
-          </TextTitle>
+        <ViewTitle>
+          <TextTitle> CALCULE SEU IMC </TextTitle>
+        </ViewTitle>
+
+        <ViewImage>
           <ImageIMCLevel source={require('../../../assets/images/imc-logo.png')}/>
-        </Title>
+        </ViewImage>
 
         <ResultView>
           <ResultCircle background={color}  >
@@ -119,7 +119,7 @@ function Home(){
         <HStack>
           <ViewInput>
             <ViewTitleInput>
-              <TextTitleInput>Sua altura (cm)</TextTitleInput>
+              <TextTitleInput>Altura (cm)</TextTitleInput>
             </ViewTitleInput>
             
             <Input
@@ -133,7 +133,7 @@ function Home(){
               maxLength={3}/>
 
             <ViewTitleInput>
-              <TextTitleInput>Seu peso (kg)</TextTitleInput>
+              <TextTitleInput>Peso (kg)</TextTitleInput>
             </ViewTitleInput> 
             
             <Input
@@ -144,7 +144,7 @@ function Home(){
               }
               value={peso}
               keyboardType={'numeric'}
-              maxLength={2}/>
+              maxLength={3}/>
 
           </ViewInput >
 
@@ -153,21 +153,29 @@ function Home(){
               <TextButtonCalculate>CALCULAR</TextButtonCalculate>
             </ButtonCalcular>
           </ViewButtonCalcular>
+
         
         </HStack>
+
+        <BottomView>
+          <ButtonLimpar colorButtonClear={ peso || altura} onPress={() => clearForm()}>
+            <MaterialIcons name="cleaning-services" size={30} color="#000" />
+            <TextButtonClear>LIMPAR</TextButtonClear>
+          </ButtonLimpar>
+
+          <ButtonSave>
+            <TextButtonCalculate>SALVAR</TextButtonCalculate>
+            <AntDesign name="save" size={30} color="#000" />
+          </ButtonSave>
+        </BottomView>
+
+        <ViewHistory>
+          <TouchableHistory>
+            <TextHistory>HISTÓRICO</TextHistory>
+          </TouchableHistory>
+        </ViewHistory>
+        
       </SecondView>
-
-      <BottomView>
-        <ButtonLimpar colorButtonClear={ peso || altura} onPress={() => clearForm()}>
-          <MaterialIcons name="cleaning-services" size={30} color="white" />
-          <TextButtonClear>LIMPAR</TextButtonClear>
-        </ButtonLimpar>
-
-        <ButtonSave>
-          <TextButtonCalculate>SALVAR</TextButtonCalculate>
-          <AntDesign name="save" size={30} color="white" />
-        </ButtonSave>
-      </BottomView>
 
       {/*<BottomView>
         <ViewButtonClear>
