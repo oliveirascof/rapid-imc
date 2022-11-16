@@ -2,16 +2,36 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Home from '../screens/home/';
+import Historic from '../screens/historic';
 
-const {Navigator, Screen} = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
+
 
 const AppRoutes = () => {
   return(
-    <Navigator>
-        <Screen options={{headerShown: false}}
+    <Stack.Navigator 
+      initialRouteName="home"
+      screenOptions={{
+          headerTitleAlign: 'center',
+          headerStyle: { backgroundColor: '#aeaeae90' },
+          gestureDirection: 'horizontal',
+          gestureEnabled: true,
+          animation: 'slide_from_bottom',
+      }}
+    >
+        <Stack.Screen 
           name='home' component={Home}
+          options={{headerShown: false}}
         />
-    </Navigator>
+        <Stack.Screen 
+          name='historic' component={Historic}
+          options={{
+            headerShown: true,
+            title: "Histórico",
+          }}
+          
+        />
+    </Stack.Navigator>
   )
 };
 

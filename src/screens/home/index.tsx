@@ -2,35 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {Alert, ToastAndroid, Text} from 'react-native';
 import {theme} from '../../styles/theme';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
-
-
-import {
-  Container,
-  ResultView,
-  Input,
-  Result,
-  ViewInput,
-  ViewTitleInput,
-  TextTitleInput,
-  PrimaryView,
-  SecondView,
-  ButtonLimpar,
-  ResultClassification,
-  ButtonCalcular,
-  ImageIMCLevel,
-  ResultCircle,
-  HStack,
-  ViewButtonCalcular,
-  TextButtonClear,
-  TextButtonCalculate,
-  ButtonSave,
-  BottomView,
-  ViewTitle,
-  TextTitle,
-  ViewImage,
-  TouchableHistory,
-  ViewHistory,
-  TextHistory} from './styles';
+import * as C from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
 
@@ -40,6 +13,11 @@ const Home = () => {
   const [resultIMC, setResultIMC] = useState('');
   const [color, setColor] = useState('');
   const regex = /[-.,]/g;
+  const { navigate } = useNavigation()
+
+  function handleNextPage () {
+    navigate('historic')
+  }
 
   function calcularImc(){
     if ((peso.length === 0) || (altura.length === 0)){
@@ -93,36 +71,36 @@ const Home = () => {
 
 
   return(
-    <Container >
-      <PrimaryView>
+    <C.Container >
+      <C.PrimaryView>
 
-        <ViewTitle>
-          <TextTitle> CALCULE SEU IMC </TextTitle>
-        </ViewTitle>
+        <C.ViewTitle>
+          <C.TextTitle> CALCULE SEU IMC </C.TextTitle>
+        </C.ViewTitle>
 
-        <ViewImage>
-          <ImageIMCLevel source={require('../../../assets/images/imc-logo.png')}/>
-        </ViewImage>
+        <C.ViewImage>
+          <C.ImageIMCLevel source={require('../../../assets/images/imc-logo.png')}/>
+        </C.ViewImage>
 
-        <ResultView>
-          <ResultCircle background={color}  >
-          <Result resultPropColor={resultindex} >
+        <C.ResultView>
+          <C.ResultCircle background={color}  >
+          <C.Result resultPropColor={resultindex} >
             {resultindex === 0 ? '?' : resultindex}
-          </Result>
-            <ResultClassification>{resultIMC}</ResultClassification>
-          </ResultCircle>
-        </ResultView>
+          </C.Result>
+            <C.ResultClassification>{resultIMC}</C.ResultClassification>
+          </C.ResultCircle>
+        </C.ResultView>
 
-      </PrimaryView>
+      </C.PrimaryView>
 
-      <SecondView>
-        <HStack>
-          <ViewInput>
-            <ViewTitleInput>
-              <TextTitleInput>Altura (cm)</TextTitleInput>
-            </ViewTitleInput>
+      <C.SecondView>
+        <C.HStack>
+          <C.ViewInput>
+            <C.ViewTitleInput>
+              <C.TextTitleInput>Altura (cm)</C.TextTitleInput>
+            </C.ViewTitleInput>
             
-            <Input
+            <C.Input
               placeholder='Altura'
               placeholderTextColor={'#808080'}
               onChangeText={
@@ -132,11 +110,11 @@ const Home = () => {
               keyboardType={'numeric'}
               maxLength={3}/>
 
-            <ViewTitleInput>
-              <TextTitleInput>Peso (kg)</TextTitleInput>
-            </ViewTitleInput> 
+            <C.ViewTitleInput>
+              <C.TextTitleInput>Peso (kg)</C.TextTitleInput>
+            </C.ViewTitleInput> 
             
-            <Input
+            <C.Input
               placeholder='Peso'
               placeholderTextColor={'#808080'}
               onChangeText={
@@ -146,36 +124,36 @@ const Home = () => {
               keyboardType={'numeric'}
               maxLength={3}/>
 
-          </ViewInput >
+          </C.ViewInput >
 
-          <ViewButtonCalcular>
-            <ButtonCalcular onPress={() => calcularImc()}>
-              <TextButtonCalculate>CALCULAR</TextButtonCalculate>
-            </ButtonCalcular>
-          </ViewButtonCalcular>
+          <C.ViewButtonCalcular>
+            <C.ButtonCalcular onPress={() => calcularImc()}>
+              <C.TextButtonCalculate>CALCULAR</C.TextButtonCalculate>
+            </C.ButtonCalcular>
+          </C.ViewButtonCalcular>
 
         
-        </HStack>
+        </C.HStack>
 
-        <BottomView>
-          <ButtonLimpar colorButtonClear={ peso || altura} onPress={() => clearForm()}>
+        <C.BottomView>
+          <C.ButtonLimpar colorButtonClear={ peso || altura} onPress={() => clearForm()}>
             <MaterialIcons name="cleaning-services" size={30} color="#000" />
-            <TextButtonClear>LIMPAR</TextButtonClear>
-          </ButtonLimpar>
+            <C.TextButtonClear>LIMPAR</C.TextButtonClear>
+          </C.ButtonLimpar>
 
-          <ButtonSave>
-            <TextButtonCalculate>SALVAR</TextButtonCalculate>
+          <C.ButtonSave>
+            <C.TextButtonCalculate>SALVAR</C.TextButtonCalculate>
             <AntDesign name="save" size={30} color="#000" />
-          </ButtonSave>
-        </BottomView>
+          </C.ButtonSave>
+        </C.BottomView>
 
-        <ViewHistory>
-          <TouchableHistory>
-            <TextHistory>HISTÓRICO</TextHistory>
-          </TouchableHistory>
-        </ViewHistory>
+        <C.ViewHistory>
+          <C.TouchableHistory onPress={ handleNextPage } >
+            <C.TextHistory>HISTÓRICO</C.TextHistory>
+          </C.TouchableHistory>
+        </C.ViewHistory>
         
-      </SecondView>
+      </C.SecondView>
 
       {/*<BottomView>
         <ViewButtonClear>
@@ -188,7 +166,7 @@ const Home = () => {
           </ButtonSave>
           </ViewButtonClear>
       </BottomView>*/}
-    </Container>
+    </C.Container>
   )
 };
 

@@ -107,7 +107,7 @@ export const Input = styled.TextInput`
   width: 90%;
   background-color: #fff;
   border-radius: 15px;
-  padding-left: 10px;
+  padding-left: 15px;
   font-size: 30px;
   border-color: #aeaeae;
   border-width: 0px;
@@ -178,11 +178,15 @@ export const TextButtonClear = styled.Text`
 export const ViewHistory = styled.View`
   justify-content: center;
   align-items: center;
-  margin: 30px;
+  margin-top: 10%;
   padding: 10px;
 `
 export const TouchableHistory = styled.TouchableOpacity`
-  
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
 `
 export const TextHistory = styled.Text`
   text-align: center;
