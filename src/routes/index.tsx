@@ -4,6 +4,7 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components/native';
 import { theme } from '../styles/theme';
 import { StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
+import { ToastProvider } from 'react-native-toast-notifications'
 
 import AppRoutes from './app.routes';
 import Loading from '../components/loading';
@@ -17,8 +18,10 @@ const Routes = () => {
   return(
     <NavigationContainer>
       <StyledThemeProvider theme={theme} >
-        <StatusBar barStyle={'light-content'}/>
-        { fontsLoaded ? <AppRoutes /> : <Loading /> }
+        <ToastProvider>
+          <StatusBar barStyle={'dark-content'} backgroundColor={'#c0c0c0'}/>
+          { fontsLoaded ? <AppRoutes /> : <Loading /> }
+        </ToastProvider>
       </StyledThemeProvider>
     </NavigationContainer>
   )

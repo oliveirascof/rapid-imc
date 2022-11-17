@@ -1,36 +1,51 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import {Alert, ToastAndroid, Text} from 'react-native';
+import React, { useCallback, useEffect, useState, createRef } from 'react';
+import {Alert, ToastAndroid, Text, View} from 'react-native';
 import {theme} from '../../styles/theme';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import * as C from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { Slider } from 'react-native-ui-lib';
+import uuid from 'react-native-uuid';
+import { useToast } from "react-native-toast-notifications";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Home = () => {
 
-  const [peso, setPeso] = useState('');
-  const [altura, setAltura] = useState('');
   const [resultindex, setResultIndex] = useState(0);
   const [resultIMC, setResultIMC] = useState('');
   const [color, setColor] = useState('');
+  const [slideValue, setSlideValue] = useState(50);
+
+  const [alturaValue, setAlturaValue] = useState(50);
+  const [pesoValue, setPesoValue] = useState(50);
+  const sliderAltura: any = createRef();
+  const sliderPeso: any = createRef();
+  const toast = useToast()
+
   const regex = /[-.,]/g;
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation();
+
+  const weight = String(pesoValue)
+  const height = String(alturaValue)
+  const bmi = String(resultindex)
+  const classific = resultIMC
+  const newColor = color
+
 
   function handleNextPage () {
     navigate('historic')
-  }
+  };
 
   function calcularImc(){
-    if ((peso.length === 0) || (altura.length === 0)){
-      Alert.alert('Campos vazios', 'Favor, preencha os campos')
-    } else {
-      let tempPeso = parseFloat(peso)
-      let tempAltura = parseFloat(altura)
+      let tempPeso = pesoValue
+      let tempAltura = alturaValue
       let tempResult= (tempPeso / ( tempAltura * tempAltura)) * 10000
-      var result: any= tempResult.toFixed(2)
+      let result: any = tempResult.toFixed(1)
       setResultIndex(result)
       classification(result)
-    }
   };
+
   function classification(imc: number){
     var classification = ''
     var color = ''
@@ -58,15 +73,50 @@ const Home = () => {
     setResultIMC(classification)
     setColor(color)
   };
-  const clearForm = () => {
-    setResultIMC('')
-    setResultIndex(0)
-    setAltura('')
-    setPeso('')
-    setColor('')
-    setTimeout(() => {
-      ToastAndroid.show('Campos apagados!', ToastAndroid.SHORT)
-    }, 200)
+
+  function notification (message: string, type: string) {
+    toast.show(`${message}`, {
+      type: `${type}`,
+      placement: "top",
+      duration: 4000,
+      animationType: "slide-in",
+      textStyle: {fontSize: 25},
+    })
+  };
+
+  function clearForm() {
+    sliderAltura.current.reset()
+    sliderPeso.current.reset()
+    setResultIMC( () => '' )
+    setResultIndex( () => 0 )
+    setSlideValue( () => 50 )
+    setAlturaValue( () => 50 )
+    setPesoValue( () => 50 )
+    setColor( () => '' )
+    notification("Campos resetados", "normal")
+  };
+
+  async function handleNew () {
+    if (resultindex === 0) {
+      notification("Calcule o IMC antes de salvar!", "danger")
+    } else {
+      try {
+        let id = uuid.v4();
+        let dateAt = Date.now()
+        const newData = {
+          id, weight, height, bmi, dateAt, classific, newColor
+        }
+
+        const response = await AsyncStorage.getItem('@savedata:historic')
+        const previosData = response ? JSON.parse(response) : [];
+        const recoverData = [newData,...previosData]
+
+        await AsyncStorage.setItem('@savedata:historic', JSON.stringify(recoverData))
+        notification("Salvo com sucesso!", "success")
+      } catch {
+        notification("Erro o gravar os dados!", "danger") // "normal | success | warning | danger | custom",
+      }
+    }
   };
 
 
@@ -83,7 +133,7 @@ const Home = () => {
         </C.ViewImage>
 
         <C.ResultView>
-          <C.ResultCircle background={color}  >
+          <C.ResultCircle background={color} borderColor={color} >
           <C.Result resultPropColor={resultindex} >
             {resultindex === 0 ? '?' : resultindex}
           </C.Result>
@@ -94,13 +144,29 @@ const Home = () => {
       </C.PrimaryView>
 
       <C.SecondView>
-        <C.HStack>
+  
           <C.ViewInput>
+
             <C.ViewTitleInput>
               <C.TextTitleInput>Altura (cm)</C.TextTitleInput>
             </C.ViewTitleInput>
-            
-            <C.Input
+
+            <C.TouchableInput>
+              <C.TextTouchableInput>{alturaValue}</C.TextTouchableInput>
+            </C.TouchableInput>
+
+            <C.ViewSlide>
+              <Slider
+                value={slideValue}
+                minimumValue={20}
+                maximumValue={240}
+                ref={ sliderAltura }
+                onValueChange={(value) => setAlturaValue( () => Math.round(value))}
+              />
+            </C.ViewSlide>
+
+
+            { /* <C.ViewTitleInput>
               placeholder='Altura'
               placeholderTextColor={'#808080'}
               onChangeText={
@@ -108,13 +174,9 @@ const Home = () => {
               }
               value={altura}
               keyboardType={'numeric'}
-              maxLength={3}/>
+              maxLength={3}/> */}
 
-            <C.ViewTitleInput>
-              <C.TextTitleInput>Peso (kg)</C.TextTitleInput>
-            </C.ViewTitleInput> 
-            
-            <C.Input
+            { /*<C.Input
               placeholder='Peso'
               placeholderTextColor={'#808080'}
               onChangeText={
@@ -122,37 +184,56 @@ const Home = () => {
               }
               value={peso}
               keyboardType={'numeric'}
-              maxLength={3}/>
+              maxLength={3}/> */ }
+
+              <C.ViewTitleInput>
+                <C.TextTitleInput>Peso (kg)</C.TextTitleInput>
+              </C.ViewTitleInput>
+
+              <C.TouchableInput>
+                <C.TextTouchableInput>{pesoValue}</C.TextTouchableInput>
+              </C.TouchableInput>
+
+              <C.ViewSlide>
+                <Slider
+                  value={slideValue}
+                  minimumValue={2}
+                  maximumValue={250}
+                  ref={ sliderPeso }
+                  onValueChange={(value) => setPesoValue( () => Math.round(value))}
+                />
+              </C.ViewSlide>
+
+              <C.ViewButtonCalcular>
+                <C.ButtonCalcular onPress={ calcularImc }>
+                  <C.TextButtonCalculate>CALCULAR</C.TextButtonCalculate>
+                </C.ButtonCalcular>
+              </C.ViewButtonCalcular>
+
+              <C.ViewHistory>
+                <C.TouchableHistory onPress={ handleNextPage } >
+                  <C.TextHistory>HISTÓRICO</C.TextHistory>
+                </C.TouchableHistory>
+              </C.ViewHistory>
 
           </C.ViewInput >
 
-          <C.ViewButtonCalcular>
-            <C.ButtonCalcular onPress={() => calcularImc()}>
-              <C.TextButtonCalculate>CALCULAR</C.TextButtonCalculate>
-            </C.ButtonCalcular>
-          </C.ViewButtonCalcular>
+          
 
-        
-        </C.HStack>
+          <C.BottomView>
+            <C.ButtonClear onPress={ clearForm }>
+              <MaterialIcons name="cleaning-services" size={30} color="#000" />
+              <C.TextButtonClear></C.TextButtonClear>
+            </C.ButtonClear>
 
-        <C.BottomView>
-          <C.ButtonLimpar colorButtonClear={ peso || altura} onPress={() => clearForm()}>
-            <MaterialIcons name="cleaning-services" size={30} color="#000" />
-            <C.TextButtonClear>LIMPAR</C.TextButtonClear>
-          </C.ButtonLimpar>
+            <C.ButtonSave onPress={ handleNew } >
+              <C.TextButtonSave></C.TextButtonSave>
+              <AntDesign name="save" size={30} color="#000" />
+            </C.ButtonSave>
+          </C.BottomView>
 
-          <C.ButtonSave>
-            <C.TextButtonCalculate>SALVAR</C.TextButtonCalculate>
-            <AntDesign name="save" size={30} color="#000" />
-          </C.ButtonSave>
-        </C.BottomView>
+          
 
-        <C.ViewHistory>
-          <C.TouchableHistory onPress={ handleNextPage } >
-            <C.TextHistory>HISTÓRICO</C.TextHistory>
-          </C.TouchableHistory>
-        </C.ViewHistory>
-        
       </C.SecondView>
 
       {/*<BottomView>

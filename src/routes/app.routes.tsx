@@ -13,7 +13,7 @@ const AppRoutes = () => {
       initialRouteName="home"
       screenOptions={{
           headerTitleAlign: 'center',
-          headerStyle: { backgroundColor: '#aeaeae90' },
+          headerStyle: { backgroundColor: '#c0c0c0' },
           gestureDirection: 'horizontal',
           gestureEnabled: true,
           animation: 'slide_from_bottom',
@@ -21,7 +21,9 @@ const AppRoutes = () => {
     >
         <Stack.Screen 
           name='home' component={Home}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            title: "CALCULE SEU IMC",}}
         />
         <Stack.Screen 
           name='historic' component={Historic}
