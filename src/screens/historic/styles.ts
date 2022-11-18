@@ -16,12 +16,12 @@ export const HStack = styled.View`
 export const VStack = styled.View`
     flex-direction: column;
     flex: 1;
-` 
+`
 export const Container = styled.View`
     flex: 1;
     justify-content: flex-start;
     align-items: center;
-    background-color: #c0c0c0;
+    background-color: #e6e6e6;
     padding: 10px;
 
 `
@@ -29,41 +29,33 @@ export const Container = styled.View`
 export const FlatListContainer = styled.View`
     height: 70px;
     border-width: 1px;
-    border-radius: 10px;
+    border-radius: 15px;
     border-color: #c0c0c0c0;
     align-items: center;
-    justify-content: center; 
-    width: 360px;
-    background-color: #ffffff99;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    justify-content: center;
+    background-color: #f5f5f5;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin: 5px;
 `
 
 export const IMCText = styled.Text`
-    text-align: center;
     font-weight: bold;
     font-size: 30px;
+    margin-left: 5px;
 `
 
 export const NormalText = styled.Text`
-    text-align: center;
     font-weight: bold;
     font-size: 15px;
+    margin-left: 3px;
 `
 
-export const CircleView  = styled.View`
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-left: 5px;
-    margin-top: 5px;
-` 
-
 export const Circle = styled.View<ColorProp>`
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     background-color: ${ (props) => props.newColor ? props.newColor : '#000' };
-    border-radius: 50px;
+    border-radius: 5px;
 `
 
 export const BottomV = styled.View`
@@ -73,13 +65,11 @@ export const BottomV = styled.View`
 `
 
 export const ButtonV = styled.TouchableOpacity`
-    width: 96%;
+    width: 95%;
     border-radius: 15px;
     background-color:  #ff5151;
     justify-content: center;
     align-items: center;
-    border-color: #009726;
-    border-width: 0px;
     height: 50px;
     margin: 15px;
 `
@@ -88,4 +78,12 @@ export const TextV = styled.Text`
     text-align: center;
     font-size: 20px;
     color: #fff;
+`
+
+export const ViewHstackLine2 = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5px;
+    margin-top: 5px;
 `

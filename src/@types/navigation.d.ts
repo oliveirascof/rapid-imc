@@ -3,6 +3,7 @@ export declare global {
         interface RootParamList {
             home: any;
             historic: any;
+            modal: any;
         }
     }
 }

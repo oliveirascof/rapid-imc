@@ -1,96 +1,95 @@
 import * as React from 'react';
 import * as C from './styles';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast } from "react-native-toast-notifications";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 
 export default function Historic () {
 
     const [data, setData] = React.useState([])
     const toast = useToast()
-    const { goBack } = useNavigation()
+    const { navigate, goBack } = useNavigation()
 
     async function handleFetchData () {
         try {
-            const response = await AsyncStorage.getItem('@savedata:historic')
+            const response = await AsyncStorage.getItem('@savedata:historic');
             const previosData = response ? JSON.parse(response) : [];
-
-            setData(() => previosData)
-            console.log(previosData)
+            setData(() => previosData);
 
         } catch {
             toast.show(`Erro o carregar os dados!`, {
                 type: `danger`,
                 placement: "top",
-                duration: 4000,
+                duration: 3000,
                 animationType: "slide-in",
-                textStyle: {fontSize: 25},
+                textStyle: {fontSize: 20},
             })
         }
-        
+
     };
 
-    async function clearStorage () {
-        try {
-            await AsyncStorage.clear()
-            toast.show(`Dados apagados com sucesso!`, {
-                type: `success`,
-                placement: "top",
-                duration: 4000,
-                animationType: "slide-in",
-                textStyle: {fontSize: 25},
-            })
-            setTimeout (() => goBack(), 1000)
-            
-        } catch {
-            toast.show(`Não foi possivel apagar dados!`, {
-                type: `danger`,
-                placement: "top",
-                duration: 4000,
-                animationType: "slide-in",
-                textStyle: {fontSize: 25},
-            })
-        }
+    function handleModal () {
+      navigate('modal')
+    };
+
+    function ListEmpty () {
+      return (
+        <Text style={{fontSize: 30}} >Sem items</Text>
+      )
     }
 
-    React.useEffect(() => {
-        handleFetchData();
+    useFocusEffect( React.useCallback(() => {
+      handleFetchData();
     }, [])
+    )
 
     return (
         <C.Container>
             <C.VStack>
             <FlatList
+                ListEmptyComponent={<ListEmpty />}
                 data={data}
                 keyExtractor={ (item) => item['id'] }
-                renderItem={ ({item}) => 
+                renderItem={ ({item}) =>
 
                 <C.FlatListContainer>
                     <C.HStack>
-                        <C.IMCText> {item['bmi']} </C.IMCText>
-                        <C.NormalText> {item['dateAt']} </C.NormalText>
-                    </C.HStack> 
+                        <C.IMCText> 
+                            {item['bmi']} 
+                        </C.IMCText>
+                        <C.NormalText> 
+                            {item['dateAt'][2]}, {item['dateAt'][1]}, {item['dateAt'][4]} 
+                        </C.NormalText>
+                    </C.HStack>
 
                     <C.HStack>
-                        <C.CircleView>
+                        <C.ViewHstackLine2>
                             <C.Circle newColor={item['newColor']} />
-                            <C.NormalText> {item['classific']} </C.NormalText>
-                        </C.CircleView>
-                        <C.NormalText> {item['dateAt']} </C.NormalText>
-                    </C.HStack> 
+                            <C.NormalText>
+                                {item['classific']} 
+                            </C.NormalText>
+                        </C.ViewHstackLine2>
+                        <C.NormalText> 
+                            {item['dateAt'][3]} 
+                        </C.NormalText>
+                    </C.HStack>
                 </C.FlatListContainer>
-                    
+
                 }
             />
             </C.VStack>
-            
+
+
             <C.BottomV>
-                <C.ButtonV onPress={ clearStorage }>
-                    <C.TextV>APAGAR DADOS</C.TextV>
+                <C.ButtonV onPress={ handleModal }>
+                    <C.TextV>APAGAR REGISTROS</C.TextV>
                 </C.ButtonV>
             </C.BottomV>
+
+
+
         </C.Container>
     )
 }

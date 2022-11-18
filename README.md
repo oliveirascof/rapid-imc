@@ -1,14 +1,13 @@
 # Rapid IMC
-### Calcule seu IMC rapidamente.
+### Calcule seu IMC rápido.
 
 #### Ferramentas:
 
 React Native <br>
 Typescript <br>
 Styled-Components <br>
-React Navigation (futuras telas) <br>
-Vector Icons <br>
-Expo manager <br>
+React Navigation <br>
+Expo <br>
 
 
-<img src="https://bl6pap003files.storage.live.com/y4mP0FoHqERyY_mb5MoIrQOMzuXEw8XGFS7jMsjvUD4gI40YsNxpVZTOQ-OmYaItHneFDGzyt8nb00yfskaWUHGThwT_LwqZHAvQnyYHbDMJVWWEwmor1BLN8FLtrEjfrnX9mcREBNzHk-GXU5-c_UCrA-UQ_o8BwaKCJiUzQE7yv8VRJOLs0HgZq50mLPxXAXm?width=300&height=500&cropmode=none" /> <img src="https://bl6pap003files.storage.live.com/y4mpOlMGQ_hqXN82y4Fn3LbI5JFE8kK4aIna1-VRhSaIs1FIAD1mEL-JS3J4QIOhIoxSs6_Mf0I-2JISgInDicIEQJdA7DVDo1f9eba4pvq_2PSX71ZT8KTrj2qWWmeitVdpZGPf1XhfhOClL9vhjw-DxtnSeDCZV83QioE4bceth20bDSPBKTPpEkzRp1DNgxL?width=300&height=500&cropmode=none"> <img src="https://bl6pap003files.storage.live.com/y4mYLwIdL4DQ0o5szc0pt3N16eXXy5kzeZFG6KMCz_OhTzcLekZCSttsy0uH9Y4SI3Zbtv7-wvGLxrJabpVZoDftHjDWT6XrER2Wm7E3H-LvXxoCm1Y5eFDtdANh7OoHxAdmPKX7WOElq094-giRJG-cULL2rOE0r267dVv_47XozAsNEpEZJ7sblJ4jNpIj-l2?width=300&height=500&cropmode=none"> <img src="https://bl6pap003files.storage.live.com/y4mM900I73ecJURUiZvL2Q0m8eRZgUD4M1UzlU3MakMbG6SwfS39Ss68t-mmsNQAvtVxl62zkjElHeZSZfVMJawlvuzUZoiJQA9o5W315QxeZ9Ow1UR8a1m71QRxcSJzS27vKgWcUhnIxBuGCEhrDTPWIG6pvL1uC9vcmGU3hnuPUiOWP60pARM1BFP6i1GhxgB?width=300&height=500&cropmode=none"/> <img src="https://bl6pap003files.storage.live.com/y4m5zpvFbbY7X4P4da0EH6muT2wfFn7TG40HVcVbErg69-DuF4sw7WZmj6k3t9JEFbLz5_AjpKgWukIUwqDOErv5yzxGQwiROjft_TrWZC1lXm9Z5GKz-1kFdNHcGPe0VLUzeEM0413OVeFPWg-Xg3RHrRYPfimfMyTkrqUDT275KnzrWPvHy8d12hDG3I5qhDJ?width=300&height=500&cropmode=none" />
+<img src="https://bl6pap003files.storage.live.com/y4mz_I9ge08KnUi9oOoigI5PwwyXZCGfGUtqCB-Q_tWkn6YFp7gKcfinHeGBQ7kDH-30R8BDMeLyiq8G0SvIpgIXABQoQ0UvRbfmpMPALjoX6SLJytojSdR3biM7bZUg9eKGJc1qzs2Sda5d_TxfUkrEWt7szXwjANWZ-F5Y_rZsfFh9-j6LQqkXcoh7ocvPW3g?width=300&height=500&cropmode=none" /> <img src="https://bl6pap003files.storage.live.com/y4mriYIyVhUWj09dO9xCPoPWC2RgZoGr4LgBMgrcCNRPN6-IT3CIirpDTjPuk_mkFZX1HNmrOwHlYyK7zVGabwN6xg0se_7trEVlIjtseBIxCr5d1Bz7oqvsGoxJvXApOFpriyMWKqEUcd4hxKGDx8kTWV8bOAlX4mu8x9KDK6lADMvos3sU-FccVNsnYz7bpcX?width=309&height=660&cropmode=none"> <img src="https://bl6pap003files.storage.live.com/y4mIG8dC6Iy3OVLePjdQrGHh7zNTc4nF9fBUFXcMNOH_gw8cTeS_EcRfYVeopMOGeRF92PU3fuA-gOvFHLHWMdHgvdzZeJT89P-JcbKOHuUirRLK0UqNSPjZfxNOxrb_96UpGtgcq3L4WG5sMRuRWGPpDwmgtu9cQ8Z-8doZ2tj1ZVTT-WJyB67TyR1EN8GR8tY?width=309&height=660&cropmode=none"> <img src="https://bl6pap003files.storage.live.com/y4m-S1LSsrUASIt2o0e9GHZllMoqpZsqolsqHvV9SjCxesLaAJcMha8bKzIDYdpGX4JWRycHUgEcZ97_tmt6hEviw02oL_Lp5acSaaOhRnOzTc3VQTUCmVT-i5MAme3Jr_zOKPXc-i6e6s6Xv109Yp2inT0cEyyToGxfKlJT5qURXAxK2oc7IWuS5xn3aaTyBjq?width=309&height=660&cropmode=none"/> <img src="https://bl6pap003files.storage.live.com/y4msfrisYVCam2ldgr0lv7LFWsi6kzQiHS1ekzaZPFt8j3EJ2mIhadt9lvoo_SglmSn3G1DpoLEO8Gkir_8nR8Qm1D5VEuaWyOy22bNvagJ7M7KZiLyXOCagJNwPO0F4Ne8eK5kF6WEg4yZIIrWov7IN1pcVgwzCN3GzWtuIQy8jecJMvhkuYT_Yzb-jfwTdhVG?width=316&height=660&cropmode=none" /> <img src="https://bl6pap003files.storage.live.com/y4mkdSC1mbglzIBOC9pq2LsGNaEEzWb67j4QM_5oTD7TaSq0qVxol1f62ca82f8EMyJzZtfi1XY4d-mkV9vSRhFD-voqltBBpbIRWv85PAX1UDfd65NW6Zitaa3Au2_XpNcXpJ4xbMQkPLmkittrUsRKaxtMmMANh4yx2ZzViQ9-yy-XDGA5I9pEV_D2EsJ9OP7?width=309&height=660&cropmode=none" />

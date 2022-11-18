@@ -19,7 +19,7 @@ const Routes = () => {
     <NavigationContainer>
       <StyledThemeProvider theme={theme} >
         <ToastProvider>
-          <StatusBar barStyle={'dark-content'} backgroundColor={'#c0c0c0'}/>
+          <StatusBar barStyle={'default'}/>
           { fontsLoaded ? <AppRoutes /> : <Loading /> }
         </ToastProvider>
       </StyledThemeProvider>

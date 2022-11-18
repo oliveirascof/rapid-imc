@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState, createRef } from 'react';
 import {Alert, ToastAndroid, Text, View} from 'react-native';
 import {theme} from '../../styles/theme';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome  , MaterialIcons } from '@expo/vector-icons';
 import * as C from './styles';
 import { useNavigation } from '@react-navigation/native';
-import { Slider } from 'react-native-ui-lib';
+import { Slider, Badge } from 'react-native-ui-lib';
 import uuid from 'react-native-uuid';
 import { useToast } from "react-native-toast-notifications";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -78,9 +78,9 @@ const Home = () => {
     toast.show(`${message}`, {
       type: `${type}`,
       placement: "top",
-      duration: 4000,
-      animationType: "slide-in",
-      textStyle: {fontSize: 25},
+      duration: 3000,
+      animationType: "zoom-in",
+      textStyle: {fontSize: 20},
     })
   };
 
@@ -94,15 +94,17 @@ const Home = () => {
     setPesoValue( () => 50 )
     setColor( () => '' )
     notification("Campos resetados", "normal")
+
   };
 
   async function handleNew () {
     if (resultindex === 0) {
-      notification("Calcule o IMC antes de salvar!", "danger")
+      notification("Calcule o IMC!", "danger")
     } else {
       try {
-        let id = uuid.v4();
-        let dateAt = Date.now()
+        var id = uuid.v4();
+        var date = new Date()
+        var dateAt = date.toLocaleString().split(' ')
         const newData = {
           id, weight, height, bmi, dateAt, classific, newColor
         }
@@ -112,7 +114,8 @@ const Home = () => {
         const recoverData = [newData,...previosData]
 
         await AsyncStorage.setItem('@savedata:historic', JSON.stringify(recoverData))
-        notification("Salvo com sucesso!", "success")
+        notification("Registrado!", "success")
+        setTimeout( () => {handleNextPage()}, 500 )
       } catch {
         notification("Erro o gravar os dados!", "danger") // "normal | success | warning | danger | custom",
       }
@@ -144,7 +147,7 @@ const Home = () => {
       </C.PrimaryView>
 
       <C.SecondView>
-  
+
           <C.ViewInput>
 
             <C.ViewTitleInput>
@@ -212,27 +215,29 @@ const Home = () => {
 
               <C.ViewHistory>
                 <C.TouchableHistory onPress={ handleNextPage } >
-                  <C.TextHistory>HISTÓRICO</C.TextHistory>
+                    <C.TextHistory>
+                      <Badge label='HISTÓRICO' size={24}/>
+                    </C.TextHistory>
                 </C.TouchableHistory>
               </C.ViewHistory>
 
           </C.ViewInput >
 
-          
+
 
           <C.BottomView>
-            <C.ButtonClear onPress={ clearForm }>
-              <MaterialIcons name="cleaning-services" size={30} color="#000" />
-              <C.TextButtonClear></C.TextButtonClear>
+            <C.ButtonClear  onPress={ clearForm }>
+              <MaterialIcons name="cleaning-services" size={20} color="#000" />
+              <C.TextButtonClear>RECOMEÇAR</C.TextButtonClear>
             </C.ButtonClear>
 
             <C.ButtonSave onPress={ handleNew } >
-              <C.TextButtonSave></C.TextButtonSave>
-              <AntDesign name="save" size={30} color="#000" />
+              <C.TextButtonSave>SALVAR</C.TextButtonSave>
+              <FontAwesome  name="save" size={20} color="#000" />
             </C.ButtonSave>
           </C.BottomView>
 
-          
+
 
       </C.SecondView>
 

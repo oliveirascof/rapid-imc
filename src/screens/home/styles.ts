@@ -144,7 +144,7 @@ export const ButtonCalcular = styled.TouchableOpacity`
   flex: 1;
   width: 90%;
   border-radius: 15px;
-  background-color:  #00ff4090;
+  background-color: #00cc00;
   justify-content: center;
   align-items: center;
   border-color: #009726;
@@ -171,11 +171,11 @@ export const ButtonSave = styled.TouchableOpacity`
   flex-direction: row;
   height: 50px;
   background-color: #3694e090;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   border-color: #0000d5;
   border-width: 0px;
-  border-radius: 30px;
+  border-radius: 15px;
   width: 45%;
 `
 export const TextButtonSave = styled.Text`
@@ -187,11 +187,13 @@ export const TextButtonSave = styled.Text`
 export const ButtonClear = styled.TouchableOpacity`
   flex-direction: row;
   height: 50px;
-  background-color: #d3cf2c90;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  border-radius: 30px;
+  border-radius: 15px;
   width: 45%;
+  border-width: 1px;
+  border-color: #808080;
+  
 `
 export const TextButtonClear = styled.Text`
   color: #000;
