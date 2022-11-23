@@ -12,21 +12,26 @@ export default function ModalConfirm () {
   async function clearStorage () {
       try {
           await AsyncStorage.clear()
-          toast.show(`Dados apagados com sucesso!`, {
+            toast.show(`Dados apagados com sucesso!`, {
               type: `success`,
               placement: "top",
               duration: 2000,
               animationType: "slide-in",
               textStyle: {fontSize: 20},
-          })
-          setTimeout(() => {navigation.navigate('home')}, 1000 )
-      } catch {
-          toast.show(`Não foi possivel excluir os dados!`, {
+            })
+
+            setTimeout(() => {navigation.navigate('home')}, 400)
+            
+
+      }
+      
+      catch {
+          toast.show(`Não foi possivel excluir! Tente novamente!`, {
               type: `danger`,
               placement: "top",
-              duration: 3000,
+              duration: 2000,
               animationType: "slide-in",
-              textStyle: {fontSize: 20},
+              textStyle: {fontSize: 15},
           })
       }
   };
@@ -45,13 +50,13 @@ export default function ModalConfirm () {
             Apagar registros?
           </C.TextTitleModal>
         </C.ViewTextTitleModal>
-       
+      
         <C.BottomModalView>
-          <C.ButtomDeletar onPress={ () => clearStorage() }>
+          <C.ButtomConfirm onPress={ () => clearStorage() }>
             <C.TextButtonDeletar>
               CONFIRMAR
             </C.TextButtonDeletar>
-          </C.ButtomDeletar>
+          </C.ButtomConfirm>
 
           <C.ButtomCancelar onPress={ () => handleGoBack() }>
             <C.TextButtonCancelar>
@@ -60,7 +65,8 @@ export default function ModalConfirm () {
           </C.ButtomCancelar>
         </C.BottomModalView>
 
-        </C.ViewHorizontal>
+      </C.ViewHorizontal>
     </C.ModalContainer>
   )
 };
+

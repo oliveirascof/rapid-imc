@@ -4,6 +4,8 @@ export declare global {
             home: any;
             historic: any;
             modal: any;
+            chart: any;
+            resultado: any;
         }
     }
 }

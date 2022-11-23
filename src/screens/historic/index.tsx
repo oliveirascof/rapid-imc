@@ -1,22 +1,25 @@
 import * as React from 'react';
 import * as C from './styles';
-import { FlatList, Text } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast } from "react-native-toast-notifications";
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { Empty } from '../../components/emptyList';
+import { AntDesign, FontAwesome  , MaterialIcons } from '@expo/vector-icons';
 
 
 export default function Historic () {
 
     const [data, setData] = React.useState([])
     const toast = useToast()
-    const { navigate, goBack } = useNavigation()
+    const navigation = useNavigation()
 
     async function handleFetchData () {
         try {
             const response = await AsyncStorage.getItem('@savedata:historic');
             const previosData = response ? JSON.parse(response) : [];
             setData(() => previosData);
+
 
         } catch {
             toast.show(`Erro o carregar os dados!`, {
@@ -27,68 +30,87 @@ export default function Historic () {
                 textStyle: {fontSize: 20},
             })
         }
-
     };
 
-    function handleModal () {
-      navigate('modal')
-    };
-
-    function ListEmpty () {
-      return (
-        <Text style={{fontSize: 30}} >Sem items</Text>
-      )
+    function showInstruction () {
+        return (
+            toast.show("Pressione para deletar", {
+                type: "warning",
+                placement: "top",
+                duration: 2000,
+                animationType: "slide-in",
+                textStyle: {fontSize: 20},
+            })
+        )
+        
     }
 
-    useFocusEffect( React.useCallback(() => {
-      handleFetchData();
-    }, [])
+
+    function handleModal () {
+        navigation.navigate('modal')
+    };
+
+    function handleChart () {
+        navigation.navigate('chart')
+    };
+
+
+    useFocusEffect( 
+        React.useCallback(() => {
+            handleFetchData();
+        }, [])
     )
 
     return (
         <C.Container>
             <C.VStack>
             <FlatList
-                ListEmptyComponent={<ListEmpty />}
+                ListEmptyComponent={<Empty />}
                 data={data}
                 keyExtractor={ (item) => item['id'] }
                 renderItem={ ({item}) =>
 
+                <Pressable onLongPress={handleModal} onPress={showInstruction}>
                 <C.FlatListContainer>
                     <C.HStack>
                         <C.IMCText> 
-                            {item['bmi']} 
+                            {item['imc']} 
                         </C.IMCText>
                         <C.NormalText> 
-                            {item['dateAt'][2]}, {item['dateAt'][1]}, {item['dateAt'][4]} 
+                            {item['dateAt'][2]}{' '} 
+                            {item['dateAt'][1]}{' '} 
+                            {item['dateAt'][4]}
                         </C.NormalText>
                     </C.HStack>
 
                     <C.HStack>
                         <C.ViewHstackLine2>
-                            <C.Circle newColor={item['newColor']} />
+                            <C.Circle newColor={item['cor']} />
                             <C.NormalText>
-                                {item['classific']} 
-                            </C.NormalText>
+                                {item['classificacao']}
+                            </C.NormalText> 
                         </C.ViewHstackLine2>
-                        <C.NormalText> 
-                            {item['dateAt'][3]} 
-                        </C.NormalText>
+                        <C.ViewTextHour>
+                            <C.NormalText>{item['dateAt'][3]}</C.NormalText>
+                        </C.ViewTextHour>
                     </C.HStack>
                 </C.FlatListContainer>
+                </Pressable>
 
                 }
             />
+
+
             </C.VStack>
 
-
-            <C.BottomV>
-                <C.ButtonV onPress={ handleModal }>
-                    <C.TextV>APAGAR REGISTROS</C.TextV>
-                </C.ButtonV>
-            </C.BottomV>
-
-
+            <C.BottomView>
+                <C.ButtonGoBack onPress={ () => navigation.goBack() }>
+                <AntDesign name="leftcircleo" size={48} color="black" />
+                </C.ButtonGoBack>
+                <C.ButtonGoChart onPress={ handleChart }> 
+                    <C.TextButton>ESTATÍSTICAS</C.TextButton>
+                </C.ButtonGoChart>
+            </C.BottomView>
 
         </C.Container>
     )

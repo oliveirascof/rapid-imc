@@ -3,7 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Home from '../screens/home/';
 import Historic from '../screens/historic';
-import ModalConfirm from '../screens/modal';
+import ModalConfirm from '../screens/modalConfirm';
+import Chart from '../screens/charts';
+import Result from '../screens/result';
 
 
 const Stack = createNativeStackNavigator();
@@ -15,9 +17,9 @@ const AppRoutes = () => {
       screenOptions={{
           headerTitleAlign: 'center',
           headerStyle: { backgroundColor: '#c0c0c0' },
-          gestureDirection: 'vertical',
+          gestureDirection: 'horizontal',
           gestureEnabled: true,
-          animation: 'slide_from_bottom',
+          animation: 'fade',
       }}
     >
         <Stack.Screen
@@ -32,6 +34,7 @@ const AppRoutes = () => {
           options={{
             headerShown: true,
             title: "Histórico",
+            animation: 'default',
             headerStyle: { backgroundColor:'#e6e6e6' }
           }}
         />
@@ -39,10 +42,28 @@ const AppRoutes = () => {
           name='modal' component={ModalConfirm}
           options={{
             headerShown: false,
-            animation: 'fade',
+            animation: 'default',
             presentation: 'modal',
             gestureEnabled: true,
           }}
+        />
+        <Stack.Screen 
+          name='chart' component={Chart}
+          options={{
+            headerShown: true,
+            animation: 'default',
+            title: "Estatísticas",
+            headerStyle: { backgroundColor:'#e6e6e6' }
+        }}
+        />
+        <Stack.Screen 
+          name='resultado' component={Result}
+          options={{
+            headerShown: false,
+            animation: 'default',
+            title: "Resultado",
+            headerStyle: { backgroundColor:'#e6e6e6' }
+        }}
         />
     </Stack.Navigator>
   )

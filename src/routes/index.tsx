@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native';
-import { theme } from '../styles/theme';
+import { theme } from '../config/styles/theme';
 import { StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import { ToastProvider } from 'react-native-toast-notifications'

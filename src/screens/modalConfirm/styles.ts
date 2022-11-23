@@ -29,22 +29,23 @@ export const TextTitleModal = styled.Text`
     font-size: 25px;
     color: #000;
 `
+
 export const BottomModalView = styled.View`
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     background-color: #fff;
     height: 60px;
 `
-export const ButtomDeletar = styled.TouchableOpacity`
+export const ButtomConfirm = styled.TouchableOpacity`
     flex: 0.5;
     align-items: center;
     justify-content: center;
     background-color: #ff5151;
     height: 50px;
-    margin: 20px;
     border-radius: 15px;
-    margin-left: 30px;
+    margin-left: 10px;
+    margin-right: 5px;
 `
 export const TextButtonDeletar = styled.Text`
     text-align: center;
@@ -57,11 +58,11 @@ export const ButtomCancelar = styled.TouchableOpacity`
     justify-content: center;
     background-color: #ffffff;
     height: 50px;
-    margin: 20px;
     border-radius: 15px;
     border-width: 1px;
     border-color: #808080;
-    margin-right: 30px;
+    margin-left: 5px;
+    margin-right: 10px;
     
 `
 
