@@ -2,13 +2,14 @@ import React, { useCallback, useState }from 'react';
 import * as C from './styles'
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useToast } from "react-native-toast-notifications";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dimensions, Pressable, View, Text, Alert } from 'react-native';
 import { VictoryPie } from 'victory-native';
 import { AntDesign } from '@expo/vector-icons';
+import { Modal, Button } from 'react-native-ui-lib';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Animatable from 'react-native-animatable';
 import uuid from 'react-native-uuid';
-import { Modal, Button } from 'react-native-ui-lib';
+import RNSpeedometer from 'react-native-speedometer';
 
 
 export default function Result ( {route}: any ) {
@@ -17,22 +18,23 @@ export default function Result ( {route}: any ) {
   const navigation = useNavigation();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isClicked, setIsClicked] = useState(1000)
 
   const [notSaved, setNotSaved] = useState(true);
-  const [emptyHistoric, setEmptyHistoric] = useState(true);
 
   const {height, width} = Dimensions.get("screen");
+  
   const toast = useToast();
 
-  const [data, setData] = useState([
+  const [data] = useState([
 
-    { y: 2, color: '#003446' },
-    { x: "16", y: 5, color: '#0a556e' },
-    { x: "17", y: 10, color: '#20728d' },
-    { x: "18", y: 20, color: '#00BFFF' },
-    { x: "25", y: 15, color: '#00cc00' },
-    { x: "30", y: 15, color: '#dfdf31f6' },
-    { x: "35", y: 15, color: '#ffa500' },
+    { y: 2, color: '#0a556e' },
+    { x: "16", y: 5, color: '#20728d' },
+    { x: "17", y: 10, color: '#00BFFF' },
+    { x: "18", y: 20, color: '#00cc00' },
+    { x: "25", y: 15, color: '#dfdf31f6' },
+    { x: "30", y: 15, color: '#ffa500' },
+    { x: "35", y: 15, color: '#FF0000' },
     { x: "40", y: 2, color: '#FF0000'}
   ])
 
@@ -42,12 +44,12 @@ export default function Result ( {route}: any ) {
 
   function openModal () {
     setIsOpenModal(true)
+    setIsClicked( 1 )
   };
 
   function closeModal () {
     setIsOpenModal(false)
   };
-
 
   async function handleNew () {
     try {
@@ -108,26 +110,6 @@ function showToast (message: string, type: string) {
   })
 };
 
-async function fetchData () {
-
-    const resp  = await AsyncStorage.getItem('@save:historic')
-    const prev = resp ? JSON.parse(resp) : [];
-    
-    if (prev.length > 0) {
-      setEmptyHistoric(true)
-    } else {
-      setEmptyHistoric(false)
-    }
-
-};
-
-
-useFocusEffect(
-  useCallback(() => {
-    fetchData();
-  },[])
-)
-
 
   return (
     <C.ResultContainer >
@@ -142,52 +124,81 @@ useFocusEffect(
             </C.TextBoxViewHorizontalEsquerdo2>
           </C.BoxViewHorizontalEsquerdo>
           <C.BoxViewHorizontalDireito>
-            <Button 
-              onPress={handleHistoricPage}
-              label='HISTÓRICO'
-              disabled={emptyHistoric}
-            />
+            <C.TouchableHistory 
+              onPress={handleHistoricPage}>
+                <C.TextButtonHistoric>
+                  HISTÓRICO
+                </C.TextButtonHistoric>
+            </C.TouchableHistory>
           </C.BoxViewHorizontalDireito>
         </C.ViewHeaderHorizontal>
         
       <C.ViewVerticalGrafico>
-        <C.SecondViewGrafico  >
-            <VictoryPie 
-              animate
-              data={data}
-              startAngle={-90}
-              endAngle={90}
-              innerRadius={50}
-              colorScale={ data.map( (element) => element.color ) }
-              labels={({ datum }) => datum.x }
-              labelPosition={ "startAngle" }
-              labelPlacement={ "vertical" }
-              style={{ 
-                labels: { fill: "black", fontSize: 12, fontWeight: "bold"} 
-              }}
-            />
-            <View style={{marginTop: -170, justifyContent: 'center'}}>
-              <Text style={{ fontSize: 22 , textAlign: 'center' }} >
-                Seu IMC é...
-              </Text>
-              <Animatable.Text
-                animation="bounceIn"
-                delay={300}
-                iterationCount={2}
-                style={{ fontSize: 60, textAlign: 'center', fontWeight: 'bold'}} >
-                {route.params?.data.imc}
-              </Animatable.Text>
-              
 
-              <Pressable onPress={openModal}>
-                <Button onPress={openModal}
-                  label={route.params?.data.classificacao} 
-                  backgroundColor={route.params?.data.cor} 
-                  color={route.params?.data.cor === '#ffff00' ? '#000000' : '#fff'}
-                />
+        <C.SecondViewGrafico  >
+
+        <Pressable onPress={openModal}>
+        <VictoryPie 
+                width={width}
+                animate
+                data={data}
+                startAngle={-90}
+                endAngle={90}
+                innerRadius={60}
+                colorScale={ data.map( (element) => element.color ) }
+                labels={({ datum }) => datum.x }
+                labelPosition={ "startAngle" }
+                labelPlacement={ "vertical" }
+                style={{ 
+                  labels: { fill: "black", fontSize: 12, fontWeight: "bold",}
+                }}
+              />
+
+    <View style={{marginTop: height / -2.5}}>
+        <RNSpeedometer
+            value={parseInt(route.params?.data.imc)}
+            size={height / 2.7}
+            minValue={16}
+            easeDuration={0}
+            maxValue={34}
+            imageStyle={{backgroundColor: 'transparent',}}
+            labels={[
+              {
+                labelColor: '#fff',
+                activeBarColor: '#00000000',
+              }
+            ]}
+            
+          />
+
+            <Text style={{ fontSize: 22 , textAlign: 'center', fontFamily: 'Montserrat-Bold' }} >
+              Seu IMC é...
+            </Text>
+            
+            <Animatable.Text
+              animation="bounceIn"
+              delay={300}
+              iterationCount={2}
+              style={{ fontSize: 70, textAlign: 'center', fontFamily: 'Montserrat-Bold'}} >
+              {route.params?.data.imc}
+            </Animatable.Text>
+            </View>
+
+            <View style={{ justifyContent: 'center'}}>
+        
+                  <C.TouchableClassific
+                    onPress={openModal}
+                    backgroundColor={route.params?.data.cor}
+                    >
+                      <C.TextButtonClassific
+                        color={route.params?.data.cor === '#ffff00' ? '#000000' : '#fff'}>
+                        {route.params?.data.classificacao}
+                      </C.TextButtonClassific>
+                  </C.TouchableClassific>
+
                   <Animatable.View 
                     animation="bounce"
-                    iterationCount={3}
+                    iterationCount={isClicked}
                     delay={3000}
                     style={{
                       marginTop: 10, height: 40, width: 40, alignSelf: 'center', borderWidth: 0.1,
@@ -197,13 +208,16 @@ useFocusEffect(
                   <AntDesign  
                     name="info" 
                     size={30} 
-                    color={route.params?.data.cor === '#ffff00' ? '#000000' : '#fff'} 
+                    color={route.params?.data.cor === '#ffff00' ? '#000000' : '#fff'}
                   />
                 </Animatable.View>  
-              </Pressable>
-              
 
-                <Modal transparent animationType={'slide'} visible={isOpenModal} onRequestClose={ () => setIsOpenModal(false) }>
+                <Modal 
+                  transparent 
+                  animationType={'slide'} 
+                  visible={isOpenModal} 
+                  onRequestClose={ () => setIsOpenModal(false) }>
+
                   <View style={{ flex: 1,padding: 50, alignItems: 'center', justifyContent: 'center'}}>
 
                     <View style={{ elevation: 20, shadowColor: '#000000',
@@ -224,7 +238,9 @@ useFocusEffect(
                 </Modal>
 
             </View>
+          </Pressable>
         </C.SecondViewGrafico>
+      
 
         {
 

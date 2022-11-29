@@ -1,52 +1,62 @@
+const obs_low = "OBS: Os índices ligeiramente abaixo de 18.5 não são saudáveis segundo a OMS (Organização Mundial da Saúde), entretanto, você pode apresentar um biotipo ligeiramente fora do índice e ser saudável. Fique atento!"
+
 const info = {
 
     "magrezagrave" : {
         "diagnostic" : "Magreza grave",
-        "description": "A magreza grave (IMC abaixo de 16) é uma condição que pode ser causada por desnutrição severa. Assim, consulte um médico, pois este peso é uma ameaça à saúde.",
-        "risk": "Risco Muito baixo"
+        "description": "A magreza grave (IMC abaixo de 16) é uma condição que pode ser causada por desnutrição severa. Procure um médico. Algumas pessoas têm um baixo peso por características do seu organismo e tudo bem. Outras podem estar enfrentando problemas, como a desnutrição. É preciso saber qual é o caso.",
+        "risk": "Risco Alto",
+        "obs": ""
     },
 
     "magrezamoderada" : {
         "diagnostic" : "Magreza moderada",
         "description": "Condições hormonais, como o hipertireoidismo, podem afetar o peso de uma pessoa, além de parasitas ou simplesmente uma dieta com poucas calorias diárias. Nesse sentido, você pode consultar um médico para ter certeza de que não tem nada de errado.",
-        "risk": "Risco Muito baixo"
+        "risk": "Risco moderado",
+        "obs": obs_low
     },
 
     "magrezaleve" : {
         "diagnostic" : "Magreza leve",
         "description": "Pode ter algumas consequências, mas no geral não é preocupante. Logo, um IMC acima de 17 não fica muito longe do saudável.",
-        "risk": "Risco Muito baixo"
+        "risk": "Risco baixo",
+        "obs": obs_low
     },
 
     "saudavel" : {
         "diagnostic" : "Saudável 👋",
-        "description": "Essa classificação garante um risco menor para diversas doenças que variam de anemia a infarto. Estar nessa classificação é estar no peso ideal para seu corpo, mas é bom lembrar de verificar a circunferência da cintura em busca de excesso de gordura. Mas para mulheres, a cintura deve ter até 80 cm. Para homens, até 94 cm. Por outro lado, a cintura deve ser medida logo abaixo das costelas.",
-        "risk": "Risco Muito baixo"
+        "description": "Que bom que você está com o peso normal! E o melhor jeito de continuar assim é mantendo um estilo de vida ativo e uma alimentação equilibrada.",
+        "risk": "Risco Muito baixo",
+        "obs": ""
     },
 
 
     "sobrepeso" : {
         "diagnostic" : "Sobrepeso",
-        "description": "O sobrepeso pode causar alguns problemas de circulação no corpo, além de fadiga. Mas assim como a magreza leve, se o IMC estiver pouco acima de 25, não é preocupante. Ou seja, uma dieta com um pouco menos de calorias ou um pouco mais de exercícios na rotina pode resolver a situação.",
-        "risk": "Risco aumentado"
+        "description": "O sobrepeso pode causar alguns problemas de circulação no corpo, além de fadiga. Mas assim como a magreza leve, se o IMC estiver pouco acima de 25, não é preocupante. Ou seja, uma dieta com um pouco menos de calorias ou um pouco mais de exercícios na rotina pode resolver a situação, mas de qualquer forma é mportante rever hábitos e buscar ajuda antes de, por uma série de fatores, entrar na faixa da obesidade pra valer.",
+        "risk": "Risco aumentado",
+        "obs": ""
     }, 
 
     "obeso1" : {
         "diagnostic" : "Obesidade grau 1",
-        "description": "Acima do IMC 30 a pessoa é considerada obesa, o que por si só já é uma doença. Graças ao peso, o risco para diversas condições aumenta consideravelmente. Um médico pode indicar um meio ideal para a regulação do peso.",
-        "risk": "Risco moderado"
+        "description": "Sinal de alerta! Chegou na hora de se cuidar, mesmo que seus exames sejam normais. Vamos dar início a mudanças hoje! Cuide de sua alimentação. Você precisa iniciar um acompanhamento com nutricionista e/ou endocrinologista.",
+        "risk": "Risco moderado",
+        "obs": ""
     },
 
     "obeso2" : {
         "diagnostic" : "Obesidade grau 2",
-        "description": "Estar com obesidade grau II é ter riscos elevados de diabetes, hipertensão, além de câncer e infarto. Procure um médico para lidar com a situação.",
-        "risk": "Risco grave"
+        "description": "Estar com obesidade grau II é ter riscos elevados de diabetes, hipertensão, além de infarto e outras doenças. Mesmo que seus exames aparentem estar normais, é hora de se cuidar, iniciando mudanças no estilo de vida com o acompanhamento próximo de profissionais de saúde. Procure um médico para lidar com a situação!",
+        "risk": "Risco grave",
+        "obs": ""
     },
 
     "obeso3" : {
         "diagnostic" : "Obesidade grau 3",
-        "description": "Chamada de obesidade mórbida, esta condição representa sérios riscos à saúde. Procure ajuda médica!",
-        "risk": "Risco muito grave"
+        "description": "Aqui o sinal é vermelho, com forte probabilidade de já existirem doenças muito graves associadas. O tratamento deve ser ainda mais urgente.",
+        "risk": "Risco muito grave",
+        "obs": ""
     }
 }
 

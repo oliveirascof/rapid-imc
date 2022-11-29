@@ -1,10 +1,10 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components/native';
+import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from 'styled-components/native';
 import { theme } from '../config/styles/theme';
 import { StatusBar } from 'react-native';
-import { useFonts } from 'expo-font';
 import { ToastProvider } from 'react-native-toast-notifications'
+import { useFonts } from 'expo-font';
 
 import AppRoutes from './app.routes';
 import Loading from '../components/loading';
@@ -12,17 +12,22 @@ import Loading from '../components/loading';
 
 const Routes = () => {
 
-  const fonts = require('../../assets/fonts/Montserrat-Regular.ttf')
-  const [fontsLoaded] = useFonts({font: fonts});
+  const [fontsLoaded] = useFonts({
+    'Montserrat-Regular': require('../../assets/fonts/Montserrat-Regular.ttf'),
+    'Montserrat-Bold': require('../../assets/fonts/Montserrat-Bold.ttf'),
+    'RubikDistressed-Regular': require('../../assets/fonts/RubikDistressed-Regular.ttf')
+  });
 
   return(
     <NavigationContainer>
-      <StyledThemeProvider theme={theme} >
+      <ThemeProvider theme={theme} >
         <ToastProvider>
-          <StatusBar barStyle={'default'}/>
+          <StatusBar barStyle={'dark-content'} backgroundColor={'#c0c0c0'}/>
+          
           { fontsLoaded ? <AppRoutes /> : <Loading /> }
+
         </ToastProvider>
-      </StyledThemeProvider>
+      </ThemeProvider>
     </NavigationContainer>
   )
 };

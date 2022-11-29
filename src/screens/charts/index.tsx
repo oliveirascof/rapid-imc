@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as C from './styles'
-import { VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryArea } from 'victory-native';
+import { VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryArea, VictoryLabel, VictoryZoomContainer } from 'victory-native';
 import { Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast } from 'react-native-toast-notifications';
@@ -31,7 +31,7 @@ export default function Chart () {
                     newData.forEach( (temp: any) => {
                         temp['imc'] = parseFloat(temp['imc'])
                         temp['peso'] = parseFloat(temp['peso'])
-                        temp['altura'] = String(temp['altura'])
+                        temp['altura'] = parseInt(temp['altura'])
                         temp['saved'] = parseInt(temp['saved'])
                     });
                 }
@@ -67,32 +67,44 @@ export default function Chart () {
         <C.Container>
             
             <C.ViewChart1>
-                
-                <VictoryChart  height={height / 2.9} domainPadding={{y: [0, 50]}} theme={VictoryTheme.material}>
+
+                <VictoryChart  
+                    
+                    height={height / 2.9} 
+                    domainPadding={{y: [0, 50]}} 
+                    theme={VictoryTheme.material}>
                         <C.Label> MEU IMC </C.Label>
                         <VictoryLine
-                            animate
+                            //animate
                             interpolation='monotoneX'
                             data={data}
                             x={'saved'}
                             y={'imc'}  
-                            
                             style={{
-                                data: { fill: "#5a99f8", opacity: 0.7 },
+                                //data: { fill: "#5a99f8", opacity: 0.7 },
                                 labels: { fontSize: 12, color: 'blue' },
-                                parent: { border: 1 }
                             }}
+                            
+
                         />
                         <VictoryScatter 
                             data={data}
                             x={'saved'}
                             y={'imc'}
                             style={{
-                                data: { fill: "#053c8f" }
+                                data: { fill: "#053c8f" },
+                                labels: { fill: "black", fontSize: 10} 
                             }}
+                            
+                            maxBubbleSize={10}
+                            minBubbleSize={5}
+                            size={8}
+                            labels={({ datum }) => datum['imc'] }
+                            
                         />
 
                 </VictoryChart>
+
                 
                 
                 {/*<VictoryChart  height={height / 2.9} domainPadding={{y: [0, 50]}} theme={VictoryTheme.material}>

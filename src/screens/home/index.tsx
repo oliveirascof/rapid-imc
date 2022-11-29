@@ -1,13 +1,14 @@
 import React, { useState, createRef, useCallback, useEffect } from 'react';
-import { Dimensions, Alert, View } from 'react-native';
+import { Dimensions, Alert, View, Text, Pressable } from 'react-native';
 import * as C from './styles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Slider, Button } from 'react-native-ui-lib';
 import { classification } from '../../services/classification';
 import { useToast } from "react-native-toast-notifications";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FontAwesome } from '@expo/vector-icons';
 
-const Home = () => {
+export default function Home (): JSX.Element {
 
   const {height, width} = Dimensions.get("screen");
 
@@ -15,6 +16,9 @@ const Home = () => {
   const [pesoValue, setPesoValue] = useState('30');
 
   const [isData, setIsData] = useState(false);
+
+  const [iconMale, setIconMale] = useState('#000')
+  const [iconFemale, setIconFemale] = useState('#9e9e9e')
 
   const [slideAltura, setSlideAltura] = useState(70);
   const [slidePeso, setSlidePeso] = useState(50);
@@ -27,7 +31,11 @@ const Home = () => {
   const regex = /[-.,]/g;
 
   async function handleResultPage (data: any) {
+
     navigation.navigate('resultado', {data})
+
+
+    
   };
 
   function handleChart () {
@@ -51,20 +59,8 @@ const Home = () => {
 
   };
 
-  async function fetchData () {
-      try {
-        const resp  = await AsyncStorage.getItem('@save:historic');
-        return resp ? true : false;
-        
-      }
-
-      catch {
-        setIsData(false)
-      }
-  }
-
   function calcularImc(){
-    if (pesoValue.length > 0 || alturaValue.length > 0) {
+    if (pesoValue.length > 0 && alturaValue.length > 0) {
       try {
         let tempPeso = parseInt(pesoValue)
         let tempAltura = parseInt(alturaValue)
@@ -82,6 +78,7 @@ const Home = () => {
           descricao: descript,
           registerFromHome,
         }
+        
         
         handleResultPage(data)
         
@@ -119,14 +116,29 @@ const Home = () => {
     textStyle: {fontSize: 20},
   })
 };
+
+function selectSexMale (){
+  setIconMale('#000')
+  setIconFemale('#9e9e9e')
+};
+
+function selectSexFemale (){
+  setIconFemale('#000')
+  setIconMale('#9e9e9e')
   
+};
+
 
   return(
     <C.Container heightEcra={String(height / 1)} widthEcra={String(width / 1)} >
       <C.PrimaryView>
 
         <C.ViewTitle>
-          <C.TextTitle> CALCULADORA IMC </C.TextTitle>
+          <Text style={{ 
+            fontSize: 20,
+            color : '#000',
+            fontFamily: 'Montserrat-Bold',
+          }}> CALCULADORA IMC </Text>
         </C.ViewTitle>
 
         <C.ViewImage>
@@ -151,7 +163,7 @@ const Home = () => {
             onChangeText={ 
               (i) => {
                 setAlturaValue( i[0] !== '0' ? i.trim().replace(regex, '') : '' ) 
-                setSlideAltura( parseInt(i === '' ? '0' : i.trim().replace(regex, '0')))
+                setSlideAltura( parseInt(i[0] !== '' ? i : '1') )
               }}
             value={alturaValue}
           />
@@ -178,7 +190,7 @@ const Home = () => {
               onChangeText={ 
                 (i) => {
                   setPesoValue( i[0] !== '0' ? i.trim().replace(regex, '') : '' ) 
-                  setSlidePeso( parseInt(i === '' ? '0' : i.trim().replace(regex, '0')))
+                  setSlidePeso( parseInt(i[0] !== '' ? i : '1'))
               }}
               value={pesoValue} 
             />
@@ -194,14 +206,19 @@ const Home = () => {
             </C.ViewSlide>
 
 
-            <C.TouchableHistory>
-              <Button 
-                onPress={ handleChart } 
-                label=' Estatísticas ' 
-                disabled={ () => fetchData() }
-                backgroundColor={'#2f009e' }
-              />
-            </C.TouchableHistory>
+        <C.ViewAskSex>
+          
+          <Pressable onPress={selectSexMale}>
+          <C.BoxEsqu>
+            <FontAwesome name="male" color={iconMale} size={height / 20} />
+          </C.BoxEsqu>
+          </Pressable>
+          <Pressable onPress={selectSexFemale}>
+          <C.BoxDir>
+          <FontAwesome name="female"  color={iconFemale} size={height / 20}/>
+          </C.BoxDir>
+          </Pressable>
+        </C.ViewAskSex>
         
 
           </C.ViewInput >
@@ -218,4 +235,3 @@ const Home = () => {
   )
 };
 
-export default Home

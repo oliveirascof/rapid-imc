@@ -1,4 +1,5 @@
 const animationTypes =  {
+    
     attention: {
         bounce: 'bounce',
         flash: 'flash',

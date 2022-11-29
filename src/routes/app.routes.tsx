@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '../screens/home/';
 import Historic from '../screens/historic';
@@ -54,7 +54,7 @@ const AppRoutes = () => {
             animation: 'default',
             title: "Estatísticas",
             headerStyle: { backgroundColor:'#e6e6e6' }
-        }}
+          }}
         />
         <Stack.Screen 
           name='resultado' component={Result}
@@ -63,7 +63,7 @@ const AppRoutes = () => {
             animation: 'default',
             title: "Resultado",
             headerStyle: { backgroundColor:'#e6e6e6' }
-        }}
+          }}
         />
     </Stack.Navigator>
   )

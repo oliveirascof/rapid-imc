@@ -5,8 +5,7 @@ export const Container = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    background-color: #e6e6e6;
-    width: 100%;
+    background-color: #c0c0c0;
     padding: 10px;
 `
 
@@ -15,7 +14,8 @@ export const ViewChart1 = styled.View`
     justify-content: center;
     align-items: center;
     background-color: #e6e6e6;
-    margin: 10px;
+    border-radius: 20px;
+    width: 100%;
 `
 export const BottomView = styled.View`
     flex: 0.1;
@@ -36,7 +36,7 @@ export const ButtonGoBack = styled.TouchableOpacity`
 export const ButtonHome = styled.TouchableOpacity`
     width: 75%;
     border-radius: 50px;
-    background-color:  #77b6ea;
+    background-color:  #6a5af5;
     justify-content: center;
     align-items: center;
     height: 50px;
@@ -46,7 +46,7 @@ export const ButtonHome = styled.TouchableOpacity`
 export const TextButton= styled.Text`
     text-align: center;
     font-size: 18px;
-    color: #000;
+    color: #fff;
     font-weight: bold;
 `
 

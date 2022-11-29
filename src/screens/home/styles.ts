@@ -51,13 +51,14 @@ export const BottomView = styled.View`
 `
 export const ViewTitle = styled.View`
   align-items: center;
-  justify-content: flex-end;
-  margin-top: 20px;
+  justify-content: center;
+  margin: 20px;
 `
 export const TextTitle = styled.Text`
   font-weight: bold;
   font-size: 20px;
   color: #000;
+  font-family: 'RubikDistressed-Regular';
 `
 export const ViewImage = styled.View`
   background-color: #e6e6e6;
@@ -191,60 +192,12 @@ export const ButtonCalcular = styled.TouchableOpacity`
 export const TextButtonCalculate = styled.Text`
   color: #000;
   font-size: 20px;
-  font-weight: bold;
+  font-family: 'Montserrat-Bold';
   text-align: center;
 `
 export const ViewButtonClear = styled.View`
   justify-content: center;
   align-items: center;
-`
-
-export const ButtonSave = styled.TouchableOpacity`
-  flex-direction: row;
-  height: 50px;
-  background-color: #77b6ea;
-  justify-content: space-evenly;
-  align-items: center;
-  border-color: #0000d5;
-  border-width: 0px;
-  border-radius: 15px;
-  flex: 1;
-  margin-left: 5px;
-`
-export const TextButtonSave = styled.Text`
-  color: #000;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-`
-export const ButtonClear = styled.TouchableOpacity`
-  flex-direction: row;
-  height: 50px;
-  justify-content: space-evenly;
-  align-items: center;
-  border-radius: 15px;
-  border-width: 0px;
-  border-color: #808080;
-  background-color: #e6e6e6;
-  flex: 1;
-  margin-right: 5px;
-`
-export const TextButtonClear = styled.Text`
-  color: #000;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-`
-
-export const TouchableHistory = styled.View`
-  margin: 30px;
-  border-radius: 10px;
-`
-export const TextHistory = styled.Text`
-  text-align: center;
-  font-weight: bold;
-  font-size: 15px;
-  
 `
 
 export const ViewBottomCalculate = styled.View`
@@ -263,4 +216,65 @@ export const ButtonCalculate = styled.TouchableOpacity`
   height: 50px;
   margin-bottom: 10px;
 
+`
+
+export const ViewAskSex = styled.View`
+    flex-direction: row;
+    border-radius: 15px;
+    background-color: #e6e6e6;
+    justify-content: center;
+    align-items: center;
+    border-width: 0px;
+    height: 100px;
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+`
+
+export const BoxEsqu = styled.View`
+    width: 100px;
+    background-color: #cdcdcd;
+    padding: 5px;
+    height: 100%;
+    border-radius: 20px;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+`
+export const TextBoxViewHorizontalEsquerdo1 = styled.Text`
+    font-size: 18px;
+    font-family: 'Montserrat-Bold';
+    
+`
+export const TextBoxViewHorizontalEsquerdo2 = styled.Text`
+    font-size: 12px;
+    font-weight: normal;  
+    color: #000;
+    font-family: 'Montserrat-Bold';
+`
+
+export const BoxDir = styled.View`
+  width: 100px;
+  background-color: #cdcdcd;
+  padding: 5px;
+  height: 100%;
+  border-radius: 20px;
+  margin: 5px;
+  align-items: center;
+  justify-content: center;
+`
+export const ButtonViewHorizontalDireito = styled.TouchableOpacity`
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 100px;
+    background-color: #0000ff;
+    border-radius: 20px;
+`
+
+export const TextiewHorizontalDireito = styled.Text`
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
 `

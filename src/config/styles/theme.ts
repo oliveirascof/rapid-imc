@@ -1,14 +1,14 @@
 export const theme = {
     colors: {
         classification: {
-            magrezagrave: '#FF0000',
-            magrezamoderada: '#ffa500',
-            magrezaleve: '#ffff00',
+            magrezagrave: '#003446',
+            magrezamoderada: '#0a556e',
+            magrezaleve: '#20728d',
             baixopeso: '#00BFFF',
             normal: '#00cc00',
-            sobrepeso: '#ffff00',
+            sobrepeso: '#dfdf31f6',
             obeso1: '#ffa500',
             obeso2: '#FF0000',
         },
     }
-  }
+}

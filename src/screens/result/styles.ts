@@ -3,20 +3,17 @@ import styled from 'styled-components/native';
 interface HomeProps {
     background: string;
     borderColor: string;
-  }
+  };
   interface TextResultProps {
     resultPropColor: number;
-  }
+  };
 
-interface ColorsClassific {
-  
-}
 
 export const ResultContainer = styled.View`
-    flex: 1;
+  flex: 1
     justify-content: space-between;
     align-items: center;
-    background-color: #e6e6e6;
+    background-color: #c0c0c0;
 `
 export const ViewHeaderHorizontal = styled.View`
     flex-direction: row;
@@ -35,16 +32,17 @@ export const ViewHeaderHorizontal = styled.View`
 export const BoxViewHorizontalEsquerdo = styled.View`
     justify-content: center;
     align-items: flex-start;
-    
 `
 export const TextBoxViewHorizontalEsquerdo1 = styled.Text`
     font-size: 18px;
-    font-weight: bold;
+    font-family: 'Montserrat-Bold';
+    
 `
 export const TextBoxViewHorizontalEsquerdo2 = styled.Text`
     font-size: 12px;
     font-weight: normal;  
     color: #555555;
+    font-family: 'Montserrat-Bold';
 `
 
 export const BoxViewHorizontalDireito = styled.View`
@@ -82,14 +80,14 @@ export const ViewVerticalGrafico = styled.View`
 
 export const SecondViewGrafico = styled.View`
     background-color:  #fff;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 95%;
 `
 
 export const ViewVerticalInfo = styled.View`
     background-color:  #fff;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-color: #009726;
     border-width: 0px;
@@ -107,12 +105,6 @@ export const TextTitleResult = styled.Text`
     align-self: center;
     font-weight: bold;
     font-size: 25px;
-    color: #000;
-`
-
-export const TextButtonCancelar = styled.Text`
-    text-align: center;
-    font-size: 20px;
     color: #000;
 `
 
@@ -182,7 +174,7 @@ export const ViewDescription = styled.TouchableHighlight`
 export const ButtonSave = styled.TouchableOpacity`
   width: 95%;
   border-radius: 50px;
-  background-color: #77b6ea;
+  background-color: #6a5af5;
   justify-content: center;
   align-items: center;
   border-color: #0000d5;
@@ -192,20 +184,54 @@ export const ButtonSave = styled.TouchableOpacity`
 `
 
 export const TextButtonSave = styled.Text`
-  color: #000;
+  color: #fff;
   font-size: 18px;
-  font-weight: bold;
+  font-family: 'Montserrat-Bold';
   text-align: center;
 `
 
-export const ButtonClassific = styled.TouchableOpacity<ColorsClassific>`
-  width: 95%;
+export const TouchableHistory = styled.TouchableOpacity`
+  width: 100%;
   border-radius: 50px;
-  background-color: #77b6ea;
+  background-color: #6a5af5;
   justify-content: center;
   align-items: center;
   border-color: #0000d5;
   border-width: 0px;
-  height: 50px;
+  height: 30px;
+  padding: 5px;
+`
+
+export const TextButtonHistoric = styled.Text`
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    font-family: 'Montserrat-Regular';
+`
+
+
+interface ClassificProps {
+  backgroundColor: string
+}
+
+interface TextClassificProps {
+  color: string
+}
+
+export const TouchableClassific = styled.TouchableOpacity<ClassificProps>`
+  width: 50%;
+  border-radius: 50px;
+  background-color: ${ (props) => props.backgroundColor ? props.backgroundColor : '#00000000' };
+  justify-content: center;
+  align-self: center;
+  border-width: 0px;
+  height: 40px;
   margin-bottom: 10px;
+`
+
+export const TextButtonClassific = styled.Text<TextClassificProps>`
+    text-align: center;
+    font-size: 14px;
+    color: ${ (props) => props.color ? props.color: '#000' };
+    font-family: 'Montserrat-Regular';
 `

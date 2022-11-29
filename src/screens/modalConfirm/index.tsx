@@ -19,10 +19,7 @@ export default function ModalConfirm () {
               animationType: "slide-in",
               textStyle: {fontSize: 20},
             })
-
             setTimeout(() => {navigation.navigate('home')}, 400)
-            
-
       }
       
       catch {

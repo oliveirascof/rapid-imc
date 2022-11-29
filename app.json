@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "IMC Calculadora",
-    "slug": "rapid-imc",
-    "version": "1.0.0",
+    "slug": "imccalculadora",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
@@ -25,10 +25,16 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.oliveirafocs.rapidimc"
+      "package": "com.oliveirafocs.imccalculadora",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "28a9c2f6-73e8-469d-b336-c33493e1386d"
+      }
     }
   }
 }

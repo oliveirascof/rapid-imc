@@ -17,3 +17,6 @@ web-build/
 .yarn.lock
 .expo-shared/
 .git/
+
+# eas package
+eas.json

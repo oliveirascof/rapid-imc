@@ -8,7 +8,7 @@ import { Empty } from '../../components/emptyList';
 import { AntDesign, FontAwesome  , MaterialIcons } from '@expo/vector-icons';
 
 
-export default function Historic () {
+export default function Historic (): JSX.Element {
 
     const [data, setData] = React.useState([])
     const toast = useToast()

@@ -24,7 +24,7 @@ export const Container = styled.View`
     flex: 1;
     justify-content: flex-start;
     align-items: center;
-    background-color: #e6e6e6;
+    background-color: #c0c0c0;
     padding: 10px;
 `
 
@@ -42,13 +42,13 @@ export const FlatListContainer = styled.View`
 `
 
 export const IMCText = styled.Text`
-    font-weight: bold;
+    font-family: 'Montserrat-Bold';
     font-size: 30px;
     margin-left: 5px;
 `
 
 export const NormalText = styled.Text`
-    font-weight: normal;
+    font-family: 'Montserrat-Regular';
     font-size: 15px;
     margin-left: 3px;
     text-align: right;
@@ -89,7 +89,7 @@ export const ButtonGoBack = styled.TouchableOpacity`
 export const ButtonGoChart = styled.TouchableOpacity`
     width: 75%;
     border-radius: 50px;
-    background-color:  #77b6ea;
+    background-color:  #6a5af5;
     justify-content: center;
     align-items: center;
     height: 50px;
@@ -99,8 +99,8 @@ export const ButtonGoChart = styled.TouchableOpacity`
 export const TextButton= styled.Text`
     text-align: center;
     font-size: 16px;
-    color: #000;
-    font-weight: bold;
+    color: #fff;
+    font-family: 'Montserrat-Bold';
 `
 
 export const ViewHstackLine2 = styled.View`

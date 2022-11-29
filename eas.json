@@ -1,0 +1,22 @@
+{
+  "cli": {
+    "version": ">= 2.7.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "../Keys and builds/IMC Calculadora/pc-api-7575363218543079895-869-3725a6b3896d.json"
+      }
+    }
+  }
+}
