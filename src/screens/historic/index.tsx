@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as C from './styles';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast } from "react-native-toast-notifications";
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Empty } from '../../components/emptyList';
 import { AntDesign, FontAwesome  , MaterialIcons } from '@expo/vector-icons';
+import * as Animatable from 'react-native-animatable';
 
 
 export default function Historic (): JSX.Element {
@@ -45,7 +46,6 @@ export default function Historic (): JSX.Element {
         
     }
 
-
     function handleModal () {
         navigation.navigate('modal')
     };
@@ -53,7 +53,6 @@ export default function Historic (): JSX.Element {
     function handleChart () {
         navigation.navigate('chart')
     };
-
 
     useFocusEffect( 
         React.useCallback(() => {
@@ -63,15 +62,22 @@ export default function Historic (): JSX.Element {
 
     return (
         <C.Container>
-            <C.VStack>
+
+            <C.VStack > 
+                
             <FlatList
                 ListEmptyComponent={<Empty />}
                 data={data}
                 keyExtractor={ (item) => item['id'] }
                 renderItem={ ({item}) =>
 
-                <Pressable onLongPress={handleModal} onPress={showInstruction}>
+                <Animatable.View
+                        animation='fadeInUp'
+                        duration={1000}
+                        delay={item['saved'] * 100}>
+                <TouchableOpacity onLongPress={handleModal} onPress={showInstruction}>
                 <C.FlatListContainer>
+                    
                     <C.HStack>
                         <C.IMCText> 
                             {item['imc']} 
@@ -94,18 +100,18 @@ export default function Historic (): JSX.Element {
                             <C.NormalText>{item['dateAt'][3]}</C.NormalText>
                         </C.ViewTextHour>
                     </C.HStack>
+                    
                 </C.FlatListContainer>
-                </Pressable>
-
+                </TouchableOpacity>
+                </Animatable.View>
                 }
             />
-
 
             </C.VStack>
 
             <C.BottomView>
                 <C.ButtonGoBack onPress={ () => navigation.goBack() }>
-                <AntDesign name="leftcircleo" size={48} color="black" />
+                    <AntDesign name="leftcircleo" size={48} color="black" />
                 </C.ButtonGoBack>
                 <C.ButtonGoChart onPress={ handleChart }> 
                     <C.TextButton>ESTATÍSTICAS</C.TextButton>

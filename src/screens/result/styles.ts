@@ -10,10 +10,10 @@ interface HomeProps {
 
 
 export const ResultContainer = styled.View`
-  flex: 1
+    flex: 1
     justify-content: space-between;
     align-items: center;
-    background-color: #c0c0c0;
+    background-color: #e6e6e6;
 `
 export const ViewHeaderHorizontal = styled.View`
     flex-direction: row;

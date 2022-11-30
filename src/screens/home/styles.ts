@@ -16,11 +16,14 @@ interface BtnClearProps {
   colorButtonClear: string;
 }
 
+interface SelectedSexProps {
+  enabled: string;
+}
 export const Container = styled.SafeAreaView<EcraProps>`
   flex: 1;
   justify-content: space-between;
   align-items: center;
-  background-color: #c0c0c0;
+  background-color: #e6e6e6;
 `
 export const PrimaryView = styled.View`
   flex: 0.2;
@@ -127,19 +130,21 @@ export const ViewDescription = styled.TouchableHighlight`
 export const ViewInput = styled.View`
   flex: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-top: 30px;
+  
 `
 export const ViewTitleInput = styled.View`
   align-self: flex-start;
   padding: 1px;
 `
 export const TextTitleInput = styled.Text`
-  font-weight: normal;
+  font-family: 'Montserrat-Regular';
   font-size: 20px;
   padding-left: 20px;
 `
 export const Input = styled.TextInput`
-  height: 50px;
+  height: 60px;
   width: 90%;
   border-radius: 15px;
   background-color:  #fff;
@@ -150,7 +155,8 @@ export const Input = styled.TextInput`
   border-width: 0px;
   font-size: 30px;
   text-align: left;
-  font-weight: normal;
+  font-family: 'Montserrat-Regular';
+  margin: 5px;
 `
 export const TouchableInput = styled.TouchableOpacity`
   height: 50px;
@@ -231,7 +237,7 @@ export const ViewAskSex = styled.View`
     padding: 10px;
 `
 
-export const BoxEsqu = styled.View`
+export const BoxEsqu = styled.View<SelectedSexProps>`
     width: 100px;
     background-color: #cdcdcd;
     padding: 5px;
@@ -240,6 +246,7 @@ export const BoxEsqu = styled.View`
     margin: 5px;
     align-items: center;
     justify-content: center;
+    border-width: ${(props) => props.enabled === '#000' ? '1px' : '0px' };
 `
 export const TextBoxViewHorizontalEsquerdo1 = styled.Text`
     font-size: 18px;
@@ -253,7 +260,7 @@ export const TextBoxViewHorizontalEsquerdo2 = styled.Text`
     font-family: 'Montserrat-Bold';
 `
 
-export const BoxDir = styled.View`
+export const BoxDir = styled.View<SelectedSexProps>`
   width: 100px;
   background-color: #cdcdcd;
   padding: 5px;
@@ -262,6 +269,8 @@ export const BoxDir = styled.View`
   margin: 5px;
   align-items: center;
   justify-content: center;
+  border-width: 1px;
+  border-width: ${(props) => props.enabled === '#000' ? '1px' : '0px' };
 `
 export const ButtonViewHorizontalDireito = styled.TouchableOpacity`
     justify-content: center;

@@ -40,7 +40,7 @@ export default function ModalConfirm () {
 
   return (
     <C.ModalContainer>
-      <C.ViewHorizontal>
+      <C.ViewHorizontal style={{elevation: 20, shadowColor: '#000000' }}>
 
         <C.ViewTextTitleModal>
           <C.TextTitleModal>

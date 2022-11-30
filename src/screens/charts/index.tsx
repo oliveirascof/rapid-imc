@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as C from './styles'
 import { VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryArea, VictoryLabel, VictoryZoomContainer } from 'victory-native';
-import { Dimensions } from 'react-native';
+import { Dimensions, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast } from 'react-native-toast-notifications';
 import { useNavigation } from '@react-navigation/native';
@@ -65,7 +65,7 @@ export default function Chart () {
 
     return (
         <C.Container>
-            
+
             <C.ViewChart1>
 
                 <VictoryChart  

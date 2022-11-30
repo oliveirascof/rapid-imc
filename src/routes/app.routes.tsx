@@ -16,10 +16,10 @@ const AppRoutes = () => {
       initialRouteName="home"
       screenOptions={{
           headerTitleAlign: 'center',
-          headerStyle: { backgroundColor: '#c0c0c0' },
+          headerStyle: { backgroundColor: '#e6e6e6' },
           gestureDirection: 'horizontal',
           gestureEnabled: true,
-          animation: 'fade',
+          animation: 'default',
       }}
     >
         <Stack.Screen
@@ -35,7 +35,7 @@ const AppRoutes = () => {
             headerShown: true,
             title: "Histórico",
             animation: 'default',
-            headerStyle: { backgroundColor:'#e6e6e6' }
+
           }}
         />
         <Stack.Screen
@@ -53,7 +53,7 @@ const AppRoutes = () => {
             headerShown: true,
             animation: 'default',
             title: "Estatísticas",
-            headerStyle: { backgroundColor:'#e6e6e6' }
+
           }}
         />
         <Stack.Screen 
@@ -62,7 +62,6 @@ const AppRoutes = () => {
             headerShown: false,
             animation: 'default',
             title: "Resultado",
-            headerStyle: { backgroundColor:'#e6e6e6' }
           }}
         />
     </Stack.Navigator>

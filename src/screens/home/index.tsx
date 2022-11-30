@@ -1,12 +1,11 @@
-import React, { useState, createRef, useCallback, useEffect } from 'react';
-import { Dimensions, Alert, View, Text, Pressable } from 'react-native';
+import React, { useState, createRef } from 'react';
+import { Dimensions, Alert, Text, TouchableOpacity } from 'react-native';
 import * as C from './styles';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { Slider, Button } from 'react-native-ui-lib';
+import { useNavigation } from '@react-navigation/native';
+import { Slider } from 'react-native-ui-lib';
 import { classification } from '../../services/classification';
 import { useToast } from "react-native-toast-notifications";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FontAwesome } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 
 export default function Home (): JSX.Element {
 
@@ -22,6 +21,7 @@ export default function Home (): JSX.Element {
 
   const [slideAltura, setSlideAltura] = useState(70);
   const [slidePeso, setSlidePeso] = useState(50);
+  
   const sliderAltura: any = createRef();
   const sliderPeso: any = createRef();
 
@@ -29,34 +29,16 @@ export default function Home (): JSX.Element {
   const toast = useToast();
 
   const regex = /[-.,]/g;
+  const regNum = /\D/g;
 
   async function handleResultPage (data: any) {
 
     navigation.navigate('resultado', {data})
 
-
-    
   };
 
   function handleChart () {
     navigation.navigate('chart')
-  };
-
-  async function confirmHistoric () {
-    
-    /* const resp = await AsyncStorage.getItem('@savedata:historic')
-    console.log(resp)
-
-    if (resp === null || resp.length === 0) {
-      Alert.alert(
-        'Alerta',
-        'Calcule e salve o IMC no histórico para visualizar as estatísticas.',
-      )
-    } 
-    else {
-      handleNextPage()
-    } */
-
   };
 
   function calcularImc(){
@@ -66,7 +48,7 @@ export default function Home (): JSX.Element {
         let tempAltura = parseInt(alturaValue)
         let tempResult= (tempPeso / ( tempAltura * tempAltura)) * 10000
         let result: any = tempResult.toFixed(1)
-        let { classific, colors, descript } = classification(result)
+        let { classific, colors, descript, risk, obs } = classification(result)
         let registerFromHome = true
 
         let data = {
@@ -76,6 +58,8 @@ export default function Home (): JSX.Element {
           classificacao: classific,
           cor: colors,
           descricao: descript,
+          risco: risk,
+          obs: obs,
           registerFromHome,
         }
         
@@ -125,14 +109,31 @@ function selectSexMale (){
 function selectSexFemale (){
   setIconFemale('#000')
   setIconMale('#9e9e9e')
-  
 };
+
+function event1 (event: any) {
+  if ( isNaN(parseInt(event)) ) {
+    setSlideAltura(1)
+  } else {
+    setSlideAltura(parseInt(event))
+  }
+};
+
+function event2 (event: any) {
+  if ( isNaN(parseInt(event)) ) {
+    setSlidePeso(1)
+  } else {
+    setSlidePeso(parseInt(event))
+  }
+};
+
+
 
 
   return(
     <C.Container heightEcra={String(height / 1)} widthEcra={String(width / 1)} >
+      
       <C.PrimaryView>
-
         <C.ViewTitle>
           <Text style={{ 
             fontSize: 20,
@@ -141,40 +142,38 @@ function selectSexFemale (){
           }}> CALCULADORA IMC </Text>
         </C.ViewTitle>
 
-        <C.ViewImage>
-          <C.ImageIMCLevel source={require('../../../assets/images/imc-logo.png')}/>
-        </C.ViewImage>
-
+        <C.ImageIMCLevel source={require('../../../assets/images/imc-logo.png')}/>
       </C.PrimaryView> 
 
       <C.SecondView>
 
-        <C.ViewInput>
+        <C.ViewInput >
 
           <C.ViewTitleInput>
             <C.TextTitleInput>Altura (cm)</C.TextTitleInput>
           </C.ViewTitleInput>
 
-          <C.Input 
+          <C.Input  // Primeira Input
+            style={{elevation: 10, shadowColor: '#000000'}}
             placeholder='Altura'
             placeholderTextColor='#808080'
             keyboardType='numeric'
             maxLength={3}
-            onChangeText={ 
-              (i) => {
-                setAlturaValue( i[0] !== '0' ? i.trim().replace(regex, '') : '' ) 
-                setSlideAltura( parseInt(i[0] !== '' ? i : '1') )
-              }}
+            onChangeText={ (i) => {
+              setAlturaValue( i.trim().charAt(0) === '0' ? '' : i.trim().replace(regex, '') )
+              event1(i)
+            } }
             value={alturaValue}
           />
 
           <C.ViewSlide>
-            <Slider
+            <Slider 
               value={ slideAltura }
               minimumValue={1}
               maximumValue={240}
               ref={ sliderAltura }
-              onValueChange={ (value) => setAlturaValue( String(Math.round(value)) ) }
+              onValueChange={ value => { setAlturaValue( String(Math.round(value)) )
+              }}
             />
           </C.ViewSlide>
 
@@ -182,49 +181,49 @@ function selectSexFemale (){
               <C.TextTitleInput>Peso (kg)</C.TextTitleInput>
             </C.ViewTitleInput>
 
-            <C.Input 
+            <C.Input // Segunda Input
+              style={{elevation: 10, shadowColor: '#000000'}}
               placeholder='Peso'
               placeholderTextColor='#808080'
               keyboardType='numeric'
               maxLength={3}
-              onChangeText={ 
-                (i) => {
-                  setPesoValue( i[0] !== '0' ? i.trim().replace(regex, '') : '' ) 
-                  setSlidePeso( parseInt(i[0] !== '' ? i : '1'))
-              }}
-              value={pesoValue} 
+              onChangeText={ (i) => {
+                setPesoValue( i.trim().charAt(0) === '0' ? '' : i.trim().replace(regex, '') )
+                event2(i)
+              } }
+              value={ pesoValue }
             />
 
             <C.ViewSlide>
               <Slider
                 value={ slidePeso }
                 minimumValue={1}
-                maximumValue={320}
+                maximumValue={240}
                 ref={ sliderPeso }
-                onValueChange={(value) => setPesoValue( String(Math.round(value)) ) }
+                onValueChange={ value => { setPesoValue( String(Math.round(value)) )
+                }}
               />
             </C.ViewSlide>
 
 
-        <C.ViewAskSex>
-          
-          <Pressable onPress={selectSexMale}>
-          <C.BoxEsqu>
-            <FontAwesome name="male" color={iconMale} size={height / 20} />
-          </C.BoxEsqu>
-          </Pressable>
-          <Pressable onPress={selectSexFemale}>
-          <C.BoxDir>
-          <FontAwesome name="female"  color={iconFemale} size={height / 20}/>
-          </C.BoxDir>
-          </Pressable>
+        <C.ViewAskSex >
+          <TouchableOpacity onPress={selectSexMale} >
+            <C.BoxEsqu enabled={iconMale}>
+              <Fontisto name="male" color={iconMale} size={height / 20} />
+            </C.BoxEsqu>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={selectSexFemale} >
+            <C.BoxDir enabled={iconFemale}>
+              <Fontisto name="female" color={iconFemale} size={height / 20}/>
+            </C.BoxDir>
+          </TouchableOpacity>
         </C.ViewAskSex>
         
 
           </C.ViewInput >
 
-          <C.ViewBottomCalculate>
-            <C.ButtonCalculate onPress={ calcularImc }>
+          <C.ViewBottomCalculate >
+            <C.ButtonCalculate onPress={ calcularImc } style={{elevation: 10, shadowColor: '#000000'}}>
               <C.TextButtonCalculate>CALCULAR</C.TextButtonCalculate>
             </C.ButtonCalculate>
           </C.ViewBottomCalculate>
@@ -234,4 +233,5 @@ function selectSexFemale (){
     </C.Container>
   )
 };
+
 

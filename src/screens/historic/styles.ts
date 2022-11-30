@@ -24,7 +24,7 @@ export const Container = styled.View`
     flex: 1;
     justify-content: flex-start;
     align-items: center;
-    background-color: #c0c0c0;
+    background-color: #e6e6e6;
     padding: 10px;
 `
 
@@ -32,7 +32,7 @@ export const FlatListContainer = styled.View`
     height: 80px;
     border-width: 1px;
     border-radius: 15px;
-    border-color: #c0c0c0c0;
+    border-color: #e6e6e6;
     align-items: center;
     justify-content: space-evenly;
     background-color: #f5f5f5;

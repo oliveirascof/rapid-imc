@@ -2,7 +2,7 @@ import React, { useCallback, useState }from 'react';
 import * as C from './styles'
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useToast } from "react-native-toast-notifications";
-import { Dimensions, Pressable, View, Text, Alert } from 'react-native';
+import { Dimensions, Pressable, View, Text, Alert, StatusBar, TouchableOpacity } from 'react-native';
 import { VictoryPie } from 'victory-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Modal, Button } from 'react-native-ui-lib';
@@ -34,8 +34,8 @@ export default function Result ( {route}: any ) {
     { x: "18", y: 20, color: '#00cc00' },
     { x: "25", y: 15, color: '#dfdf31f6' },
     { x: "30", y: 15, color: '#ffa500' },
-    { x: "35", y: 15, color: '#FF0000' },
-    { x: "40", y: 2, color: '#FF0000'}
+    { x: "35", y: 15, color: '#fd4646' },
+    { x: "39", y: 2, color: '#FF0000'}
   ])
 
   function handleHistoricPage () {
@@ -65,7 +65,7 @@ export default function Result ( {route}: any ) {
       const newData = {
         id: String(uuid.v4()),
         dateAt: date,
-        day: date[2],
+        day: `${date[2] + '/' + date[1]}`,
         saved,
         ...route.params?.data
       }
@@ -112,7 +112,16 @@ function showToast (message: string, type: string) {
 
 
   return (
-    <C.ResultContainer >
+    <Animatable.View
+      animation='bounceInRight'
+      duration={1000}
+      delay={200}
+      style={{
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#e6e6e6',
+      }} >
 
         <C.ViewHeaderHorizontal>
           <C.BoxViewHorizontalEsquerdo>
@@ -125,6 +134,7 @@ function showToast (message: string, type: string) {
           </C.BoxViewHorizontalEsquerdo>
           <C.BoxViewHorizontalDireito>
             <C.TouchableHistory 
+              style={{elevation: 10, shadowColor: '#000'}}
               onPress={handleHistoricPage}>
                 <C.TextButtonHistoric>
                   HISTÓRICO
@@ -137,14 +147,14 @@ function showToast (message: string, type: string) {
 
         <C.SecondViewGrafico  >
 
-        <Pressable onPress={openModal}>
+        <TouchableOpacity onPress={openModal}>
         <VictoryPie 
                 width={width}
                 animate
                 data={data}
                 startAngle={-90}
                 endAngle={90}
-                innerRadius={60}
+                innerRadius={50}
                 colorScale={ data.map( (element) => element.color ) }
                 labels={({ datum }) => datum.x }
                 labelPosition={ "startAngle" }
@@ -158,9 +168,9 @@ function showToast (message: string, type: string) {
         <RNSpeedometer
             value={parseInt(route.params?.data.imc)}
             size={height / 2.7}
-            minValue={16}
-            easeDuration={0}
-            maxValue={34}
+            minValue={15}
+            easeDuration={300}
+            maxValue={39}
             imageStyle={{backgroundColor: 'transparent',}}
             labels={[
               {
@@ -171,7 +181,7 @@ function showToast (message: string, type: string) {
             
           />
 
-            <Text style={{ fontSize: 22 , textAlign: 'center', fontFamily: 'Montserrat-Bold' }} >
+            <Text style={{ marginTop: height / 20 ,fontSize: 22 , textAlign: 'center', fontFamily: 'Montserrat-Bold' }} >
               Seu IMC é...
             </Text>
             
@@ -187,11 +197,12 @@ function showToast (message: string, type: string) {
             <View style={{ justifyContent: 'center'}}>
         
                   <C.TouchableClassific
+                    style={{elevation: 10, shadowColor: '#000000'}}
                     onPress={openModal}
                     backgroundColor={route.params?.data.cor}
                     >
                       <C.TextButtonClassific
-                        color={route.params?.data.cor === '#ffff00' ? '#000000' : '#fff'}>
+                        color={route.params?.data.cor === '#dfdf31f6' ? '#000000' : '#fff'}>
                         {route.params?.data.classificacao}
                       </C.TextButtonClassific>
                   </C.TouchableClassific>
@@ -208,7 +219,7 @@ function showToast (message: string, type: string) {
                   <AntDesign  
                     name="info" 
                     size={30} 
-                    color={route.params?.data.cor === '#ffff00' ? '#000000' : '#fff'}
+                    color={route.params?.data.cor === '#dfdf31f6' ? '#000000' : '#fff'}
                   />
                 </Animatable.View>  
 
@@ -218,19 +229,48 @@ function showToast (message: string, type: string) {
                   visible={isOpenModal} 
                   onRequestClose={ () => setIsOpenModal(false) }>
 
-                  <View style={{ flex: 1,padding: 50, alignItems: 'center', justifyContent: 'center'}}>
+                  <View style={{ flex: 1, padding: 40, alignItems: 'center', justifyContent: 'center'}}>
 
-                    <View style={{ elevation: 20, shadowColor: '#000000',
+                    <View style={{ elevation: 20, shadowColor: '#000000', borderWidth: 0.5,
                       justifyContent: 'center', height: 'auto', backgroundColor: '#ffffff', padding: 25, borderRadius: 20
                       }} >
-                      <View style={{marginBottom: 20}}>
-                        <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>{route.params?.data.classificacao}</Text>
-                      </View>
-                      <View style={{marginBottom: 30}}>
-                        <Text style={{textAlign: 'justify' }}>{route.params?.data.descricao}</Text>
-                      </View>
+                      <Animatable.View 
+                        style={{marginBottom: 20}}
+                        animation="flash"
+                        iterationCount={5}
+                        delay={200}>
+                        <Text style={{
+                          color: route.params?.data.cor === '#dfdf31f6' ? '#000' : route.params?.data.cor, 
+                          backgroundColor: route.params?.data.cor === '#dfdf31f6' ? '#dfdf31f6' : '#fff', 
+                          borderRadius: 10, 
+                          textAlign: 'center', 
+                          fontSize: 20, 
+                          fontFamily: 'Montserrat-Bold'}}
+                        >
+                          {route.params?.data.classificacao}{'\n'}{route.params?.data.risco}
+                        </Text>
+                      </Animatable.View>
+                      <Animatable.View style={{marginBottom: 30}}
+                        animation="jello"
+                        iterationCount={1}
+                        delay={200}>
+                        <Text style={{
+                          textAlign: 'justify', 
+                          fontFamily: 'Montserrat-Regular' }}
+                        > 
+                          {route.params?.data.descricao}
+                        </Text>
+                      </Animatable.View>
+                      <Animatable.View style={{marginBottom: 30}}
+                        animation="jello"
+                        iterationCount={1}
+                        delay={200}>
+                        <Text style={{
+                          textAlign: 'justify', 
+                          fontFamily: 'Montserrat-Regular'}}>{route.params?.data.obs}</Text>
+                      </Animatable.View>
                       <View>
-                        <Button label='Fechar' onPress={closeModal}/>
+                        <Button label='Fechar' onPress={closeModal} style={{elevation: 20, shadowColor: '#000000'}}/>
                       </View>
                     </View>
 
@@ -238,7 +278,7 @@ function showToast (message: string, type: string) {
                 </Modal>
 
             </View>
-          </Pressable>
+          </TouchableOpacity>
         </C.SecondViewGrafico>
       
 
@@ -246,11 +286,11 @@ function showToast (message: string, type: string) {
 
         notSaved === true ?
 
-          <C.ButtonSave onPress={confirmSave}>
+          <C.ButtonSave onPress={confirmSave} style={{elevation: 10, shadowColor: '#000000'}}>
             <C.TextButtonSave>SALVAR</C.TextButtonSave>
           </C.ButtonSave>
         :
-          <C.ButtonSave onPress={() => navigation.navigate('home')}>
+          <C.ButtonSave onPress={() => navigation.navigate('home')} style={{elevation: 10, shadowColor: '#000000'}}>
             <C.TextButtonSave>CALCULAR NOVAMENTE</C.TextButtonSave>
           </C.ButtonSave>
 
@@ -258,7 +298,7 @@ function showToast (message: string, type: string) {
 
         </C.ViewVerticalGrafico>
 
-    </C.ResultContainer>
+    </Animatable.View>
   )
 };
 
